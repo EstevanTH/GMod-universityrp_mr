@@ -402,7 +402,8 @@ hook.Add("findStartableLesson_mr", "prop_teacher_computer_mr:sh", .....)
     `allComputers` is an optional cached version of the table provided by `prop_teacher_computer_mr.getAllComputers()`.
 - *:black_heart: SHARED:* `string prop_teacher_computer_mr.getSameOriginFixingUrl(string url)`  
     Returns the root renderer URL substitution that fixes a `SAMEORIGIN` `X-Frame-Options` policy  
-    When no substitution is applied, the root renderer URL is `about:blank`.
+    When no substitution is applied, the root renderer URL is `about:blank`.  
+    Please note that only 1 substitution is allowed in a slideshow.
 - *:black_heart: SHARED:* `boolean prop_teacher_computer_mr.isPictureUrl(string url)`  
     Returns if the specified URL is recognized as a picture URL
 - *:black_heart: SHARED:* `boolean prop_teacher_computer_mr.isVideoUrl(string url)`  
