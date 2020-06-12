@@ -384,38 +384,38 @@ hook.Add("findStartableLesson_mr", "prop_teacher_computer_mr:sh", .....)
 
 ## Public functions
 
+- *:blue_heart: SERVER:* `table prop_teacher_computer_mr.fixLessonInfo(table lesson, table lang_server, table lang_others)`  
+    Normalizes a slideshow table in-place and returns `lesson`  
+    The optional slideshow lists `lang_server` & `lang_others` are used to distinguish slideshows by language upon refreshing the slideshow JSON library. They do not make sense when normalizing a manually created `lesson` table.
 - *:orange_heart: CLIENT:* `prop_teacher_computer_mr.fixHdr()`  
     Fixes the High Dynamic Range for the current frame (disables bloom & sets tone mapping scale to `1.`)  
     This is called every time a screen is rendered.
-- *:blue_heart: SERVER:* `boolean prop_teacher_computer_mr.slideshowAllowedInWhitelist(table lesson, Player ply)`  
-    Returns if the specified slideshow is allowed by the whitelist
-- *:blue_heart: SERVER:* `boolean prop_teacher_computer_mr.slideshowAllowed(table lesson, Player ply, Entity computer)`  
-    Returns if the specified slideshow can be opened  
-    This function runs the `canOpenSlideshow_mr` event.
-- *:black_heart: SHARED:* `string prop_teacher_computer_mr.getSameOriginFixingUrl(string url)`  
-    Returns the root renderer URL substitution that fixes a `SAMEORIGIN` `X-Frame-Options` policy  
-    When no substitution is applied, the root renderer URL is `about:blank`.
-- *:black_heart: SHARED:* `boolean prop_teacher_computer_mr.isVideoUrl(string url)`  
-    Returns if the specified URL is recognized as a video URL
-- *:black_heart: SHARED:* `boolean prop_teacher_computer_mr.isYouTubeUrl(string url)`  
-    Returns if the specified URL is recognized as a YouTube video URL
-- *:black_heart: SHARED:* `boolean prop_teacher_computer_mr.isPictureUrl(string url)`  
-    Returns if the specified URL is recognized as a picture URL
-- *:black_heart: SHARED:* `Entity prop_teacher_computer_mr.getComputerFromSeat(Vehicle seat, allComputers)`  
-    Find the computer associated with the specified seat.  
-    `allComputers` is an optional cached version of the table provided by `prop_teacher_computer_mr.getAllComputers()`.
-- *:black_heart: SHARED:* `Entity prop_teacher_computer_mr.getComputerFromPlayer(Player ply, allComputers)`  
-    Find the computer that a player is using.  
-    `allComputers` is an optional cached version of the table provided by `prop_teacher_computer_mr.getAllComputers()`.
 - *:black_heart: SHARED:* `table prop_teacher_computer_mr.getAllComputers()`  
     Lists every computer in an optimized way  
     The computers are the keys and tbe values are always `true`.  
     This is more efficient than using `ents.FindByClass()` on many times.
-- *:blue_heart: SERVER:* `table prop_teacher_computer_mr.fixLessonInfo(table lesson, table lang_server, table lang_others)`  
-    Normalizes a slideshow table in-place and returns `lesson`  
-    The optional slideshow lists `lang_server` & `lang_others` are used to distinguish slideshows by language upon refreshing the slideshow JSON library. They do not make sense when normalizing a manually created `lesson` table.
+- *:black_heart: SHARED:* `Entity prop_teacher_computer_mr.getComputerFromPlayer(Player ply, allComputers)`  
+    Find the computer that a player is using.  
+    `allComputers` is an optional cached version of the table provided by `prop_teacher_computer_mr.getAllComputers()`.
+- *:black_heart: SHARED:* `Entity prop_teacher_computer_mr.getComputerFromSeat(Vehicle seat, allComputers)`  
+    Find the computer associated with the specified seat.  
+    `allComputers` is an optional cached version of the table provided by `prop_teacher_computer_mr.getAllComputers()`.
+- *:black_heart: SHARED:* `string prop_teacher_computer_mr.getSameOriginFixingUrl(string url)`  
+    Returns the root renderer URL substitution that fixes a `SAMEORIGIN` `X-Frame-Options` policy  
+    When no substitution is applied, the root renderer URL is `about:blank`.
+- *:black_heart: SHARED:* `boolean prop_teacher_computer_mr.isPictureUrl(string url)`  
+    Returns if the specified URL is recognized as a picture URL
+- *:black_heart: SHARED:* `boolean prop_teacher_computer_mr.isVideoUrl(string url)`  
+    Returns if the specified URL is recognized as a video URL
+- *:black_heart: SHARED:* `boolean prop_teacher_computer_mr.isYouTubeUrl(string url)`  
+    Returns if the specified URL is recognized as a YouTube video URL
 - *:blue_heart: SERVER:* `no value prop_teacher_computer_mr.registerLesson(string category, table lesson)`  
     Registers a Lua-defined slideshow under the specified category  
     This is only meant for slideshows hosted on *Steam Workshop*.  
     This is only defined when loading Lua-defined slideshows, located in `lua/config/prop_teacher_computer_mr/lessons/`.  
     This function runs the `prop_teacher_computer_mr:registerLuaLesson` event.
+- *:blue_heart: SERVER:* `boolean prop_teacher_computer_mr.slideshowAllowed(table lesson, Player ply, Entity computer)`  
+    Returns if the specified slideshow can be opened  
+    This function runs the `canOpenSlideshow_mr` event.
+- *:blue_heart: SERVER:* `boolean prop_teacher_computer_mr.slideshowAllowedInWhitelist(table lesson, Player ply)`  
+    Returns if the specified slideshow is allowed by the whitelist
