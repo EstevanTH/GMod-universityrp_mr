@@ -1,0 +1,383 @@
+{
+	"_language": {
+		"categories": {
+			"Automobile": {
+				"en": "Automobile"
+			},
+			"Éducation": {
+				"en": "Education"
+			},
+			"Électronique": {
+				"en": "Electronics"
+			},
+			"Exemples": {
+				"en": "Examples"
+			},
+			"Humour": {
+				"en": "Humor"
+			},
+			"Logiciels": {
+				"en": "Software"
+			},
+			"Loisirs": {
+				"en": "Hobbies"
+			},
+			"Psychologie": {
+				"en": "Psychology"
+			}
+		}
+	},
+	"Automobile": [
+		{
+			"title": "Boîte vitesse 16 rapports camion - Démonstration (1:21)",
+			"hl": "fr",
+			"filename": "Boîte vitesse 16 rapports camion - Démonstration.odp",
+			"keywords": ["automobile", "boite", "vitesse", "vitesses", "16", "rapports", "camion", "demonstration"],
+			"slides": [
+				"https://www.youtube-nocookie.com/embed/QKE3CWoKRAM"
+			],
+			"preview": "https://www.example.ext/slideshows/Automobile/Boite_vitesse_16_rapports_camion_Demonstration_preview1.jpg"
+		},
+		{
+			"title": "Éco-conduite par Renault (6:20)",
+			"hl": "fr",
+			"filename": "Éco-conduite par Renault.odp",
+			"keywords": ["automobile", "eco", "conduite", "renault"],
+			"slides": [
+				"https://www.youtube-nocookie.com/embed/DZ_MXn1hL1E?end=380"
+			],
+			"preview": "https://www.example.ext/slideshows/Automobile/Eco-conduite_par_Renault_preview1.jpg"
+		},
+		{
+			"title": "Essence : Cliquetis, Indice d'Octane, Types",
+			"hl": "fr",
+			"filename": "Essence - Cliquetis, Indice d'Octane, Types.odp",
+			"keywords": ["automobile", "essence", "cliquetis", "indice", "octane", "types"],
+			"slides": [
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/01.jpg",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/02.png",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/03.png",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/04.png",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/05.htm",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/06.png",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/07.png",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/08.htm",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/09.png",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/10.png",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/11.png",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/12.png",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/13.png",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/14.png",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/15.png",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/16.png",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/17.png",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/18.png",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/19.png",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/20.png",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/21.png",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/22.png",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/23.png",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/24.png",
+				"https://www.example.ext/slideshows/Automobile/Essence_Cliquetis_Indice_Octane_Types/25.png"
+			]
+		},
+		{
+			"title": "Principe de fonctionnement du moteur diesel (12:17)",
+			"hl": "fr",
+			"filename": "Principe de fonctionnement du moteur diesel.odp",
+			"keywords": ["automobile", "principe", "fonctionnement", "moteur", "diesel"],
+			"slides": [
+				"https://www.youtube-nocookie.com/embed/AENXSzqKQF4?start=13&end=136",
+				"https://www.youtube-nocookie.com/embed/AENXSzqKQF4?start=136&end=188",
+				"https://www.youtube-nocookie.com/embed/AENXSzqKQF4?start=188&end=250",
+				"https://www.youtube-nocookie.com/embed/AENXSzqKQF4?start=250&end=339",
+				"https://www.youtube-nocookie.com/embed/AENXSzqKQF4?start=339&end=369",
+				"https://www.youtube-nocookie.com/embed/AENXSzqKQF4?start=369&end=421",
+				"https://www.youtube-nocookie.com/embed/AENXSzqKQF4?start=421&end=512",
+				"https://www.youtube-nocookie.com/embed/AENXSzqKQF4?start=512&end=588",
+				"https://www.youtube-nocookie.com/embed/AENXSzqKQF4?start=588&end=637",
+				"https://www.youtube-nocookie.com/embed/AENXSzqKQF4?start=637&end=720",
+				"https://www.youtube-nocookie.com/embed/AENXSzqKQF4?start=720&end=750"
+			],
+			"preview": "https://www.example.ext/slideshows/Automobile/Principe_de_fonctionnement_du_moteur_diesel_preview1.jpg"
+		},
+		{
+			"title": "5 Things You Should Never Do In A Manual Transmission Vehicle (8:31)",
+			"hl": "en",
+			"filename": "5 Things You Should Never Do In A Manual Transmission Vehicle.odp",
+			"keywords": ["automobile", "things", "you", "should", "never", "do", "manual", "transmission", "vehicle"],
+			"slides": [
+				"https://www.youtube-nocookie.com/embed/_cbZlhduYJY?start=0&end=122",
+				"https://www.youtube-nocookie.com/embed/_cbZlhduYJY?start=122&end=252",
+				"https://www.youtube-nocookie.com/embed/_cbZlhduYJY?start=251&end=373",
+				"https://www.youtube-nocookie.com/embed/_cbZlhduYJY?start=373&end=425",
+				"https://www.youtube-nocookie.com/embed/_cbZlhduYJY?start=424&end=461",
+				"https://www.youtube-nocookie.com/embed/_cbZlhduYJY?start=460&end=498"
+			],
+			"preview": "https://www.example.ext/slideshows/Automobile/5_Things_You_Should_Never_Do_In_A_Manual_Transmission_Vehicle_preview1.jpg"
+		},
+		{
+			"title": "ECU remaps explained - BOOST (2:07)",
+			"hl": "en",
+			"filename": "ECU remaps explained - BOOST.odp",
+			"keywords": ["automobile", "ecu", "remaps", "remap", "explained", "boost"],
+			"slides": [
+				"https://www.youtube-nocookie.com/embed/ZbicBDZu-KU"
+			],
+			"preview": "https://www.example.ext/slideshows/Automobile/ECU_remaps_explained_BOOST_preview1.jpg"
+		},
+		{
+			"title": "How Rotary Engines Work (12:28)",
+			"hl": "en",
+			"filename": "How Rotary Engines Work.odp",
+			"keywords": ["automobile", "how", "rotary", "engine", "engines", "work"],
+			"slides": [
+				"https://www.youtube-nocookie.com/embed/sd6pJtR4PaY?start=0&end=101",
+				"https://www.youtube-nocookie.com/embed/sd6pJtR4PaY?start=101&end=258",
+				"https://www.youtube-nocookie.com/embed/sd6pJtR4PaY?start=257&end=347",
+				"https://www.youtube-nocookie.com/embed/sd6pJtR4PaY?start=347&end=403",
+				"https://www.youtube-nocookie.com/embed/sd6pJtR4PaY?start=403&end=572",
+				"https://www.youtube-nocookie.com/embed/sd6pJtR4PaY?start=572&end=717",
+				"https://www.youtube-nocookie.com/embed/sd6pJtR4PaY?start=717&end=747"
+			],
+			"preview": "https://www.example.ext/slideshows/Automobile/How_Rotary_Engines Work_preview1.jpg"
+		}
+	],
+	"Biologie": [
+		{
+			"title": "Fonctionnement du cœur (2:15)",
+			"hl": "fr",
+			"filename": "Fonctionnement du cœur.odp",
+			"keywords": ["biologie", "fonctionnement", "coeur"],
+			"slides": [
+				"https://www.youtube-nocookie.com/embed/QZmYM5-Wb38?start=0&end=75",
+				"https://www.youtube-nocookie.com/embed/QZmYM5-Wb3?start=75&8"
+			],
+			"preview": "https://www.example.ext/slideshows/Biologie/Fonctionnement_du_coeur_preview1.jpg"
+		}
+	],
+	"Éducation": [
+		{
+			"title": "BAC, Examens 10 Conseils pour se Préparer et Réussir (10:13)",
+			"hl": "fr",
+			"filename": "BAC, Examens 10 Conseils pour se Préparer et Réussir.odp",
+			"keywords": ["education", "bac", "examens", "10", "conseils", "preparer", "reussir"],
+			"slides": [
+				"https://www.youtube-nocookie.com/embed/rC4f62jBBFk"
+			],
+			"preview": "https://www.example.ext/slideshows/Education/BAC_Examens_10_Conseils_pour_se_Preparer_et_Reussir_preview1.jpg"
+		}
+	],
+	"Électricité": [
+		{
+			"title": "Le fonctionnement d'une centrale biomasse (1:55)",
+			"hl": "fr",
+			"filename": "Le fonctionnement d'une centrale biomasse.odp",
+			"keywords": ["electricite", "fonctionnement", "centrale", "biomasse"],
+			"slides": [
+				"https://www.youtube-nocookie.com/embed/B0Nq35wkpsk?end=115"
+			],
+			"preview": "https://www.example.ext/slideshows/Electricite/Le_fonctionnement_d_une_centrale_biomasse_preview1.jpg"
+		},
+		{
+			"title": "Principe de fonctionnement d'un générateur électrique (2:33)",
+			"hl": "fr",
+			"filename": "Principe de fonctionnement d'un générateur électrique.odp",
+			"keywords": ["electricite", "principe", "fonctionnement", "generateur", "electrique"],
+			"slides": [
+				"https://www.youtube-nocookie.com/embed/SlD1lgUnQR0?start=0&end=83",
+				"https://www.youtube-nocookie.com/embed/SlD1lgUnQR?start=83&0"
+			],
+			"preview": "https://www.example.ext/slideshows/Electricite/Principe_de_fonctionnement_d_un_generateur_electrique_preview1.jpg"
+		}
+	],
+	"Électronique": [
+		{
+			"title": "Comment C'est Fait - Les Haut Parleurs (4:59)",
+			"hl": "fr",
+			"filename": "Comment C'est Fait - Les Haut Parleurs.odp",
+			"keywords": ["electronique", "comment", "fait", "haut", "parleur", "parleurs"],
+			"slides": [
+				"https://www.youtube-nocookie.com/embed/8jhuNS96PzI"
+			],
+			"preview": "https://www.example.ext/slideshows/Electronique/Comment_C_est_Fait_Les_Haut_Parleurs_preview1.jpg"
+		},
+		{
+			"title": "Fonctionnement du Processeur/CPU (6:01)",
+			"hl": "fr",
+			"filename": "Fonctionnement du Processeur-CPU.odp",
+			"keywords": ["electronique", "fonctionnement", "processeur", "cpu"],
+			"slides": [
+				"https://www.youtube-nocookie.com/embed/bzSRdqW9INc?end=361"
+			],
+			"preview": "https://www.example.ext/slideshows/Electronique/Fonctionnement_du_Processeur_CPU_preview1.jpg"
+		},
+		{
+			"title": "Présentation biotélémétrie",
+			"hl": "fr",
+			"filename": "Biotélémétrie.odp",
+			"keywords": ["electronique", "biologie", "biologique", "presentation", "biotelemetrie", "telemetrie"],
+			"slides": [
+				"https://docs.google.com/presentation/d/1bitqE1ws_G5Tsa6oPCDuwpJXc_LC6-2FIlSbkmAvOhg/present?slide=id.p3",
+				"https://docs.google.com/presentation/d/1bitqE1ws_G5Tsa6oPCDuwpJXc_LC6-2FIlSbkmAvOhg/present?slide=id.p4",
+				"https://docs.google.com/presentation/d/1bitqE1ws_G5Tsa6oPCDuwpJXc_LC6-2FIlSbkmAvOhg/present?slide=id.p5",
+				"https://docs.google.com/presentation/d/1bitqE1ws_G5Tsa6oPCDuwpJXc_LC6-2FIlSbkmAvOhg/present?slide=id.p6",
+				"https://docs.google.com/presentation/d/1bitqE1ws_G5Tsa6oPCDuwpJXc_LC6-2FIlSbkmAvOhg/present?slide=id.p7",
+				"https://docs.google.com/presentation/d/1bitqE1ws_G5Tsa6oPCDuwpJXc_LC6-2FIlSbkmAvOhg/present?slide=id.p8",
+				"https://docs.google.com/presentation/d/1bitqE1ws_G5Tsa6oPCDuwpJXc_LC6-2FIlSbkmAvOhg/present?slide=id.p9",
+				"https://docs.google.com/presentation/d/1bitqE1ws_G5Tsa6oPCDuwpJXc_LC6-2FIlSbkmAvOhg/present?slide=id.p10",
+				"https://docs.google.com/presentation/d/1bitqE1ws_G5Tsa6oPCDuwpJXc_LC6-2FIlSbkmAvOhg/present?slide=id.p11"
+			],
+			"preview": "https://www.example.ext/slideshows/Electronique/Presentation_biotelemetrie_preview1.jpg",
+			"whitelist": ["STEAM_0:1:59932820"]
+		}
+	],
+	"Exemples": [
+		{
+			"title": "Exemple",
+			"hl": "fr",
+			"filename": "Exemple.odp",
+			"keywords": ["exemples", "exemple"],
+			"count": 6,
+			"slides": [
+				"https://www.example.ext/slideshows/Exemple/Exemple_%02u.png"
+			]
+		},
+		{
+			"title": "Modèle",
+			"hl": "fr",
+			"filename": "Modèle.odp",
+			"keywords": ["exemples", "modele"],
+			"count": 8,
+			"slides": [
+				"https://www.example.ext/slideshows/Exemple/Modele_%02u.png"
+			]
+		}
+	],
+	"Humour": [
+		{
+			"title": "Crétin.fr par LeKipou :) (3:35)",
+			"hl": "fr",
+			"filename": "Crétin.fr par LeKipou.odp",
+			"keywords": ["humour", "cretin", "fr", "lekipou"],
+			"slides": [
+				"https://www.youtube-nocookie.com/embed/KLfWn6Mnf2?start=5&A"
+			],
+			"preview": "https://www.example.ext/slideshows/Humour/Cretin.fr_par_LeKipou_preview1.jpg"
+		},
+		{
+			"title": "The New Mactini (1:37)",
+			"hl": "en",
+			"filename": "The New Mactini.odp",
+			"keywords": ["humour", "new", "mactini"],
+			"slides": [
+				"https://www.youtube-nocookie.com/embed/BGGOn-H7s3Q"
+			],
+			"preview": "https://www.example.ext/slideshows/Humour/The_New_Mactini_preview1.jpg"
+		}
+	],
+	"Loisirs": [
+		{
+			"title": "Airsoft : Fonctionnement",
+			"hl": "fr",
+			"filename": "Airsoft - Fonctionnement.odp",
+			"keywords": ["loisirs", "airsoft", "fonctionnement"],
+			"slides": [
+				"https://www.example.ext/slideshows/Loisirs/Airsoft_Fonctionnement/1.jpg",
+				"https://www.example.ext/slideshows/Loisirs/Airsoft_Fonctionnement/2.jpg",
+				"https://www.example.ext/slideshows/Loisirs/Airsoft_Fonctionnement/3.png",
+				"https://www.example.ext/slideshows/Loisirs/Airsoft_Fonctionnement/4.png",
+				"https://www.example.ext/slideshows/Loisirs/Airsoft_Fonctionnement/5.htm",
+				"https://www.example.ext/slideshows/Loisirs/Airsoft_Fonctionnement/6.png",
+				"https://www.example.ext/slideshows/Loisirs/Airsoft_Fonctionnement/7.jpg"
+			]
+		}
+	],
+	"Logiciels": [
+		{
+			"title": "FL Studio : Introduction",
+			"hl": "fr",
+			"filename": "Introduction à FL Studio.odp",
+			"keywords": ["fl", "studio", "introduction"],
+			"slides": [
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.p",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_95",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_105",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_110",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_115",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_136",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_148",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_165",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_179",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_184",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_189",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_195",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_202",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_211",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_218",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_225",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_232",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_237",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_246",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_252",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_258",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_264",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_270",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_278",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_285",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_291",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_297",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_303",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_309",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_315",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_321",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_326",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_332",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_338",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_344",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_350",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_356",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21ee483292_0_362",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21eecc85c8_0_1",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21eecc85c8_0_7",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21eecc85c8_0_13",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21eecb848c_0_0",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21eecb848c_0_6",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21eecb848c_0_13",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21eecb848c_0_19",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21eecb848c_0_25",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21eecb848c_0_31",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21eecb848c_0_37",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21eecb848c_0_43",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21eecb848c_0_49",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21eebd1e1f_0_0",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21eebd1e1f_0_6",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21eebd1e1f_0_12",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21eebd1e1f_0_18",
+				"https://docs.google.com/presentation/d/1fz-MlAIVavVxxfN_TxxIBX3tPeR0RY531qW8prnUJcY/present?slide=id.g21eebd1e1f_0_24"
+			],
+			"preview": "https://www.example.ext/slideshows/Logiciels/FL_Studio_Introduction_preview1.jpg"
+		}
+	],
+	"Psychologie": [
+		{
+			"title": "Self determination is freedom and a tool against prejudice (14:26)",
+			"hl": "en",
+			"filename": "Self determination is freedom and a tool against prejudice.odp",
+			"keywords": ["psychologie", "self", "determination", "freedom", "tool", "against", "prejudice"],
+			"slides": [
+				"https://www.youtube-nocookie.com/embed/flm7UUlch9g?start=8&end=281",
+				"https://www.youtube-nocookie.com/embed/flm7UUlch9g?start=281&end=308",
+				"https://www.youtube-nocookie.com/embed/flm7UUlch9g?start=308&end=396",
+				"https://www.youtube-nocookie.com/embed/flm7UUlch9g?start=396&end=529",
+				"https://www.youtube-nocookie.com/embed/flm7UUlch9g?start=529&end=596",
+				"https://www.youtube-nocookie.com/embed/flm7UUlch9g?start=596&end=651",
+				"https://www.youtube-nocookie.com/embed/flm7UUlch9g?start=651&end=691",
+				"https://www.youtube-nocookie.com/embed/flm7UUlch9g?start=691&end=769",
+				"https://www.youtube-nocookie.com/embed/flm7UUlch9g?start=769&end=813",
+				"https://www.youtube-nocookie.com/embed/flm7UUlch9g?start=813&end=874"
+			],
+			"preview": "https://www.example.ext/slideshows/Psychologie/Self_determination_is_freedom_and_a_tool_against_prejudice_preview1.jpg"
+		}
+	]
+}
