@@ -15,6 +15,7 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 AddCSLuaFile("config/prop_teacher_computer_mr/shared.lua")
 include("config/prop_teacher_computer_mr/server.lua")
+resource.AddWorkshop("2128234105")
 
 -- Configuration:
 local LessonsListUrl = prop_teacher_computer_mr.LessonsListUrl or "models/prop_teacher_computer_mr/lessons_library.json.vvd"
