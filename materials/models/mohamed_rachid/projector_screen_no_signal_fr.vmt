@@ -1,0 +1,16 @@
+"UnLitGeneric"
+{
+	"$basetexture" "models/mohamed_rachid/projector_screen_no_signal_fr"
+	"$surfaceprop" "carpet"
+	"$model" 1
+	
+	"$colorfix" "{255 255 255}"
+	"Proxies"
+	{
+		"Equals"
+		{
+			srcVar1 $colorfix
+			resultVar $color
+		}
+	}
+}

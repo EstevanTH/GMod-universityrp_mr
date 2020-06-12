@@ -1,0 +1,19 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/mohamed_rachid/projector_screen_static_metal"
+	"$surfaceprop" "Metal_Box"
+	"$envmap" "env_cubemap"
+	"$envmaptint" "[ .1 .1 .1 ]"
+	"$selfillum" 0
+	"$model" 1
+	
+	"$colorfix" "{160 160 160}"
+	"Proxies"
+	{
+		"Equals"
+		{
+			srcVar1 $colorfix
+			resultVar $color
+		}
+	}
+}

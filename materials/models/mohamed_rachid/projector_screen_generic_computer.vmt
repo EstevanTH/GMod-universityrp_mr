@@ -1,0 +1,23 @@
+"UnLitGeneric"
+{
+	"$basetexture"	"models/props/cs_office/screen"
+	"$surfaceprop" "carpet"
+	"$model" 1
+	
+	"$colorfix" "{255 255 255}"
+	"Proxies"
+	{
+		"Equals"
+		{
+			srcVar1 $colorfix
+			resultVar $color
+		}
+		"AnimatedTexture"
+		{
+			"animatedTextureVar" "$basetexture"
+			"animatedTextureFrameNumVar" "$frame"
+			"animatedTextureFrameRate" "2"
+		}
+	}
+}
+// Inspired from materials/models/props/cs_office/screen.vmt

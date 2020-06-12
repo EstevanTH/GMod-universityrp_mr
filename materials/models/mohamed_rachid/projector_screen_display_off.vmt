@@ -1,0 +1,15 @@
+"VertexLitGeneric"
+{
+	"$surfaceprop" "carpet"
+	"$model" 1
+	
+	"$colorfix" "{224 224 224}"
+	"Proxies"
+	{
+		"Equals"
+		{
+			srcVar1 $colorfix
+			resultVar $color
+		}
+	}
+}

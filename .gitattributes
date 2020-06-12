@@ -1,0 +1,5 @@
+*.md text eol=crlf
+*.lua text eol=crlf
+*.vmt text eol=crlf
+*.json.vvd text eol=crlf
+*.qc text eol=crlf
