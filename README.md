@@ -2,6 +2,8 @@
 
 This add-on contains a computer, a projector and a projector screen. You may configure your own slideshow JSON library.
 
+[This add-on on Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2128234105)
+
 ## Features
 
 - Slideshows composed of pictures (usually screenshots), HTML pages, Google Docs slideshows, YouTube videos
@@ -16,9 +18,11 @@ The server and the clients must have *Counter-Strike: Source* or *Counter-Strike
 
 To make the equipments persistent, the add-on *[Persistent equipments saver & entities remover](../../tree/universityrp_mr_spawn)* is necessary.
 
-To improve the readability, the add-on *[Persistent equipments saver & entities remover](../../tree/universityrp_mr_spawn)* is recommended.
+To improve the readability, the add-on *[Seat: zoom & volatile 3rd person](../../tree/universityrp_seats_zoom_thirdperson)* is recommended.
 
 For optimization and meeting / classroom usage, the add-on *[Rooms location management library](https://github.com/EstevanTH/GMod-rooms_lib_mr)* is highly recommended.
+
+Maps compiled with HDR are not recommended. The add-on tries its best to mitigate the brightness problems introduced by the High Dynamic Range: it disables the bloom and it sets the tone mapping scale to `1.` when a screen is rendered. You may want to use [HDR disabler for servers](https://steamcommunity.com/sharedfiles/filedetails/?id=595984057) to disable the HDR on a map that you did not compile.
 
 ## Usage
 
