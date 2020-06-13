@@ -210,7 +210,7 @@ These are examples usages of `hook.Add()` for events triggered in this add-on.
 
 The slideshows (aka. lessons) are always normalized (meaning that they have been fixed at least once by `prop_teacher_computer_mr.fixLessonInfo()`).
 
-- *:blue_heart: SERVER:* `prop_teacher_computer_mr:canUseComputer`  
+- *:blue_heart: SERVER:* **`prop_teacher_computer_mr:canUseComputer`**  
     Checks whether a player can use a computer.
 
 ```lua
@@ -219,7 +219,7 @@ hook.Add("prop_teacher_computer_mr:canUseComputer", "PUT IDENTIFIER HERE", funct
 end)
 ```
 
-- *:blue_heart: SERVER:* `canOpenSlideshow_mr`  
+- *:blue_heart: SERVER:* **`canOpenSlideshow_mr`**  
     Checks whether a player can open a slideshow.
 
 ```lua
@@ -228,7 +228,7 @@ hook.Add("canOpenSlideshow_mr", "PUT IDENTIFIER HERE", function(lesson, ply, com
 end)
 ```
 
-- *:blue_heart: SERVER:* `prop_teacher_computer_mr:registerLuaLesson`  
+- *:blue_heart: SERVER:* **`prop_teacher_computer_mr:registerLuaLesson`**  
     For every slideshow defined outside the slideshow JSON library, checks if it will be registered into the list.  
     Modifications in the `lesson` table are allowed. Be aware that the passed slideshow is already normalized.
 
@@ -240,31 +240,31 @@ end)
 
 ## Hooks added on specific events from other add-ons
 
-- *:orange_heart: CLIENT:* `findFirstPersonOverlayComputer_mr`
+- *:orange_heart: CLIENT:* **`findFirstPersonOverlayComputer_mr`**
 
 ```lua
 hook.Add("findFirstPersonOverlayComputer_mr", "prop_teacher_computer_mr:cl", .....)
 ```
 
-- *:orange_heart: CLIENT:* `newFirstPersonOverlayComputer_mr`
+- *:orange_heart: CLIENT:* **`newFirstPersonOverlayComputer_mr`**
 
 ```lua
 hook.Add("newFirstPersonOverlayComputer_mr", "prop_teacher_computer_mr:cl", .....)
 ```
 
-- *:orange_heart: CLIENT:* `canUseFirstPersonZoom_mr`
+- *:orange_heart: CLIENT:* **`canUseFirstPersonZoom_mr`**
 
 ```lua
 hook.Add("canUseFirstPersonZoom_mr", "prop_teacher_computer_mr:cl", .....)
 ```
 
-- *:blue_heart: SERVER:* `seat_natural_leaving:shouldDo`
+- *:blue_heart: SERVER:* **`seat_natural_leaving:shouldDo`**
 
 ```lua
 hook.Add("seat_natural_leaving:shouldDo", "prop_teacher_computer_mr:sv", .....)
 ```
 
-- *:black_heart: SHARED:* `findStartableLesson_mr`
+- *:black_heart: SHARED:* **`findStartableLesson_mr`**
 
 ```lua
 hook.Add("findStartableLesson_mr", "prop_teacher_computer_mr:sh", .....)
@@ -274,153 +274,153 @@ hook.Add("findStartableLesson_mr", "prop_teacher_computer_mr:sh", .....)
 
 ### Class `prop_ceiling_projector_mr`
 
-- *:black_heart: SHARED:* `Entity ENT:GetComputer()`  
+- *:black_heart: SHARED:* `Entity` **`ENT:GetComputer`**`()`  
     Retrieves the associated computer
-- *:black_heart: SHARED:* `boolean ENT:GetOn()`  
+- *:black_heart: SHARED:* `boolean` **`ENT:GetOn`**`()`  
     Returns the current "power on" status
-- *:black_heart: SHARED:* `Entity ENT:GetProjectorProp()`  
+- *:black_heart: SHARED:* `Entity` **`ENT:GetProjectorProp`**`()`  
     Returns the projector prop (which is located in the crate)
-- *:black_heart: SHARED:* `Entity ENT:GetProjectorScreen()`  
+- *:black_heart: SHARED:* `Entity` **`ENT:GetProjectorScreen`**`()`  
     Returns the associated projector screen
-- *:blue_heart: SERVER:* `ENT:SetOn(boolean on)`  
+- *:blue_heart: SERVER:* `no value` **`ENT:SetOn`**`(boolean on)`  
     See `ENT:GetOn()`
-- *:blue_heart: SERVER:* `ENT:SetProjectorScreen(Entity projectorScreen)`  
+- *:blue_heart: SERVER:* `no value` **`ENT:SetProjectorScreen`**`(Entity projectorScreen)`  
     See `ENT:GetProjectorScreen()`
 
 ### Class `prop_projector_screen_mr`
 
-- *:blue_heart: SERVER:* `no value ENT:closeScreen()`  
+- *:blue_heart: SERVER:* `no value` **`ENT:closeScreen`**`()`  
     Runs the screen closing process
-- *:black_heart: SHARED:* `Entity ENT:GetComputer()`  
+- *:black_heart: SHARED:* `Entity` **`ENT:GetComputer`**`()`  
     Retrieves the associated computer
-- *:black_heart: SHARED:* `float ENT:GetLastClosed()`  
+- *:black_heart: SHARED:* `float` **`ENT:GetLastClosed`**`()`  
     Returns the `CurTime()` from when the closing sequence started  
     A value of `0.` is returned if the last action is an opening sequence.
-- *:black_heart: SHARED:* `float ENT:GetLastOpened()`  
+- *:black_heart: SHARED:* `float` **`ENT:GetLastOpened`**`()`  
     Returns the `CurTime()` from when the opening sequence started  
     A value of `0.` is returned if the last action is a closing sequence.
-- *:black_heart: SHARED:* `Entity ENT:GetProjector()`  
+- *:black_heart: SHARED:* `Entity` **`ENT:GetProjector`**`()`  
     Retrieves the associated projector
-- *:black_heart: SHARED:* `boolean ENT:isDeployed()`  
+- *:black_heart: SHARED:* `boolean` **`ENT:isDeployed`**`()`  
     Returns if an opening sequence is finished
-- *:blue_heart: SERVER:* `no value ENT:openScreen()`  
+- *:blue_heart: SERVER:* `no value` **`ENT:openScreen`**`()`  
     Runs the screen opening process
 
 ### Class `prop_teacher_computer_mr`
 
-- *:black_heart: SHARED:* `no value ENT:actionSlideSetPage(int page)`  
+- *:black_heart: SHARED:* `no value` **`ENT:actionSlideSetPage`**`(int page)`  
     Changes the current slide number with state check  
     This can be used clientside for prediction.
-- *:black_heart: SHARED:* `no value ENT:actionSlideNext()`  
+- *:black_heart: SHARED:* `no value` **`ENT:actionSlideNext`**`()`  
     Changes the current slide number to the next one  
     This can be used clientside for prediction.
-- *:black_heart: SHARED:* `no value ENT:actionSlidePrevious()`  
+- *:black_heart: SHARED:* `no value` **`ENT:actionSlidePrevious`**`()`  
     Changes the current slide number to the previous one  
     This can be used clientside for prediction.
-- *:black_heart: SHARED:* `string ENT:GetCurrentUrl()`  
+- *:black_heart: SHARED:* `string` **`ENT:GetCurrentUrl`**`()`  
     Returns the URL of the previous slide (except if it is a video)
-- *:black_heart: SHARED:* `string ENT:GetFilename()`  
+- *:black_heart: SHARED:* `string` **`ENT:GetFilename`**`()`  
     Returns the displayed filename on OpenOffice Impress
-- *:black_heart: SHARED:* `boolean ENT:GetForTechnician()`  
+- *:black_heart: SHARED:* `boolean` **`ENT:GetForTechnician`**`()`  
     Returns if the computer if for a technician use (clickable HTML renderer)
-- *:black_heart: SHARED:* `string ENT:GetNextUrl()`  
+- *:black_heart: SHARED:* `string` **`ENT:GetNextUrl`**`()`  
     Returns the URL of the next slide (except if it is a video)
-- *:black_heart: SHARED:* `int ENT:GetPage()`  
+- *:black_heart: SHARED:* `int` **`ENT:GetPage`**`()`  
     Gets the current slide number
-- *:black_heart: SHARED:* `string ENT:GetPreviewUrl()`  
+- *:black_heart: SHARED:* `string` **`ENT:GetPreviewUrl`**`()`  
     Returns the preview picture URL
-- *:black_heart: SHARED:* `string ENT:GetPreviousUrl()`  
+- *:black_heart: SHARED:* `string` **`ENT:GetPreviousUrl`**`()`  
     Returns the URL of the current slide
-- *:black_heart: SHARED:* `Entity ENT:GetProjector()`  
+- *:black_heart: SHARED:* `Entity` **`ENT:GetProjector`**`()`  
     Returns the associated projector
-- *:black_heart: SHARED:* `Entity ENT:GetProjectorScreen()`  
+- *:black_heart: SHARED:* `Entity` **`ENT:GetProjectorScreen`**`()`  
     Retrieves the associated projector screen
-- *:black_heart: SHARED:* `Player ENT:GetRemoteOwner()`  
+- *:black_heart: SHARED:* `Player` **`ENT:GetRemoteOwner`**`()`  
     Returns the current owner of the remote control
-- *:black_heart: SHARED:* `Vehicle ENT:GetSeat()`  
+- *:black_heart: SHARED:* `Vehicle` **`ENT:GetSeat`**`()`  
     Returns the associated seat
-- *:black_heart: SHARED:* `int ENT:GetSlideshowPages()`  
+- *:black_heart: SHARED:* `int` **`ENT:GetSlideshowPages`**`()`  
     Returns the slides count of the loaded slideshow (or `0`)
-- *:black_heart: SHARED:* `int ENT:GetState()`  
+- *:black_heart: SHARED:* `int` **`ENT:GetState`**`()`  
     Gets the computer state.  
-- *:blue_heart: SERVER:* `Player ENT:GetUser()`  
+- *:blue_heart: SERVER:* `Player` **`ENT:GetUser`**`()`  
     Retrieves the current computer user (the owner of the remote control or the player on the computer's seat)
-- *:black_heart: SHARED:* `int ENT:GetVideoPosition_s()`  
+- *:black_heart: SHARED:* `int` **`ENT:GetVideoPosition_s`**`()`  
     Returns the video position at which the playback should start  
     Check out `prop_teacher_computer_mr.actions` for valid values.
-- *:blue_heart: SERVER:* `no value ENT:giveRemote(Player ply)`  
+- *:blue_heart: SERVER:* `no value` **`ENT:giveRemote`**`(Player ply)`  
     Gives the specified player the remote control  
     There is no effect if someone already has the remote control.
-- *:black_heart: SHARED:* `boolean ENT:isComputerOn()`  
+- *:black_heart: SHARED:* `boolean` **`ENT:isComputerOn`**`()`  
     Returns if the computer is awake
-- *:blue_heart: SERVER:* `no value ENT:loadLesson(table lesson)`  
+- *:blue_heart: SERVER:* `no value` **`ENT:loadLesson`**`(table lesson)`  
     Loads the specified slideshow  
     The `lesson` table can be built from anywhere. Make sure that `prop_teacher_computer_mr.fixLessonInfo()` was called on it.
-- *:blue_heart: SERVER:* `no value ENT:makePhoneProp()`  
+- *:blue_heart: SERVER:* `no value` **`ENT:makePhoneProp`**`()`  
     Creates the phone decoration prop
-- *:blue_heart: SERVER:* `no value ENT:makeRemoteProp()`  
+- *:blue_heart: SERVER:* `no value` **`ENT:makeRemoteProp`**`()`  
     Creates the prop of the remote control  
-- *:blue_heart: SERVER:* `no value ENT:removeRemoteProp()`  
+- *:blue_heart: SERVER:* `no value` **`ENT:removeRemoteProp`**`()`  
     Removes the prop of the remote control  
     This is automatically called by `ENT:SetProjector()`.
-- *:blue_heart: SERVER:* `no value ENT:SetFilename(string filename)`  
+- *:blue_heart: SERVER:* `no value` **`ENT:SetFilename`**`(string filename)`  
     See `ENT:GetFilename()`
-- *:black_heart: SHARED:* `no value ENT:SetForTechnician(boolean forTechnician)`  
+- *:black_heart: SHARED:* `no value` **`ENT:SetForTechnician`**`(boolean forTechnician)`  
     See `ENT:GetForTechnician()`
-- *:black_heart: SHARED:* `no value ENT:SetPage(int page)`  
+- *:black_heart: SHARED:* `no value` **`ENT:SetPage`**`(int page)`  
     See `ENT:GetPage()`  
-- *:blue_heart: SERVER:* `no value ENT:SetProjector(Entity projector)`  
+- *:blue_heart: SERVER:* `no value` **`ENT:SetProjector`**`(Entity projector)`  
     Associates the specified projector
-- *:black_heart: SHARED:* `no value ENT:SetRemoteOwner(Player remoteOwner)`  
+- *:black_heart: SHARED:* `no value` **`ENT:SetRemoteOwner`**`(Player remoteOwner)`  
     Sets the current owner of the remote control
-- *:black_heart: SHARED:* `no value ENT:SetSeat(Vehicle seat)`  
+- *:black_heart: SHARED:* `no value` **`ENT:SetSeat`**`(Vehicle seat)`  
     Sets the associated seat
-- *:blue_heart: SERVER:* `no value ENT:SetState(int state)`  
+- *:blue_heart: SERVER:* `no value` **`ENT:SetState`**`(int state)`  
     See `ENT:GetState()`  
     This can be used clientside for prediction.  
     This is automatically called by `ENT:SetProjector()`.
-- *:blue_heart: SERVER:* `no value ENT:stripRemote()`  
+- *:blue_heart: SERVER:* `no value` **`ENT:stripRemote`**`()`  
     Strips the remote control from their current owner
-- *:blue_heart: SERVER:* `no value ENT:turnComputerOn()`  
+- *:blue_heart: SERVER:* `no value` **`ENT:turnComputerOn`**`()`  
     Turns the computer on
-- *:blue_heart: SERVER:* `no value ENT:turnComputerOff()`  
+- *:blue_heart: SERVER:* `no value` **`ENT:turnComputerOff`**`()`  
     Puts the computer into standby mode
 
 ## Public functions
 
-- *:blue_heart: SERVER:* `table prop_teacher_computer_mr.fixLessonInfo(table lesson, table lang_server, table lang_others)`  
+- *:blue_heart: SERVER:* `table` **`prop_teacher_computer_mr.fixLessonInfo`**`(table lesson, table lang_server, table lang_others)`  
     Normalizes a slideshow table in-place and returns `lesson`  
     The optional slideshow lists `lang_server` & `lang_others` are used to distinguish slideshows by language upon refreshing the slideshow JSON library. They do not make sense when normalizing a manually created `lesson` table.
-- *:orange_heart: CLIENT:* `prop_teacher_computer_mr.fixHdr()`  
+- *:orange_heart: CLIENT:* `no value` **`prop_teacher_computer_mr.fixHdr`**`()`  
     Fixes the High Dynamic Range for the current frame (disables bloom & sets tone mapping scale to `1.`)  
     This is called every time a screen is rendered.
-- *:black_heart: SHARED:* `table prop_teacher_computer_mr.getAllComputers()`  
+- *:black_heart: SHARED:* `table` **`prop_teacher_computer_mr.getAllComputers`**`()`  
     Lists every computer in an optimized way  
     The computers are the keys and tbe values are always `true`.  
     This is more efficient than using `ents.FindByClass()` on many times.
-- *:black_heart: SHARED:* `Entity prop_teacher_computer_mr.getComputerFromPlayer(Player ply, allComputers)`  
+- *:black_heart: SHARED:* `Entity` **`prop_teacher_computer_mr.getComputerFromPlayer`**`(Player ply, allComputers)`  
     Find the computer that a player is using.  
     `allComputers` is an optional cached version of the table provided by `prop_teacher_computer_mr.getAllComputers()`.
-- *:black_heart: SHARED:* `Entity prop_teacher_computer_mr.getComputerFromSeat(Vehicle seat, allComputers)`  
+- *:black_heart: SHARED:* `Entity` **`prop_teacher_computer_mr.getComputerFromSeat`**`(Vehicle seat, allComputers)`  
     Find the computer associated with the specified seat.  
     `allComputers` is an optional cached version of the table provided by `prop_teacher_computer_mr.getAllComputers()`.
-- *:black_heart: SHARED:* `string prop_teacher_computer_mr.getSameOriginFixingUrl(string url)`  
+- *:black_heart: SHARED:* `string` **`prop_teacher_computer_mr.getSameOriginFixingUrl`**`(string url)`  
     Returns the root renderer URL substitution that fixes a `SAMEORIGIN` `X-Frame-Options` policy  
     When no substitution is applied, the root renderer URL is `about:blank`.  
     Please note that only 1 substitution is allowed in a slideshow.
-- *:black_heart: SHARED:* `boolean prop_teacher_computer_mr.isPictureUrl(string url)`  
+- *:black_heart: SHARED:* `boolean` **`prop_teacher_computer_mr.isPictureUrl`**`(string url)`  
     Returns if the specified URL is recognized as a picture URL
-- *:black_heart: SHARED:* `boolean prop_teacher_computer_mr.isVideoUrl(string url)`  
+- *:black_heart: SHARED:* `boolean` **`prop_teacher_computer_mr.isVideoUrl`**`(string url)`  
     Returns if the specified URL is recognized as a video URL
-- *:black_heart: SHARED:* `boolean prop_teacher_computer_mr.isYouTubeUrl(string url)`  
+- *:black_heart: SHARED:* `boolean` **`prop_teacher_computer_mr.isYouTubeUrl`**`(string url)`  
     Returns if the specified URL is recognized as a YouTube video URL
-- *:blue_heart: SERVER:* `no value prop_teacher_computer_mr.registerLesson(string category, table lesson)`  
+- *:blue_heart: SERVER:* `no value` **`prop_teacher_computer_mr.registerLesson`**`(string category, table lesson)`  
     Registers a Lua-defined slideshow under the specified category  
     This is only meant for slideshows hosted on *Steam Workshop*.  
     This is only defined when loading Lua-defined slideshows, located in `lua/config/prop_teacher_computer_mr/lessons/`.  
     This function runs the `prop_teacher_computer_mr:registerLuaLesson` event.
-- *:blue_heart: SERVER:* `boolean prop_teacher_computer_mr.slideshowAllowed(table lesson, Player ply, Entity computer)`  
+- *:blue_heart: SERVER:* `boolean` **`prop_teacher_computer_mr.slideshowAllowed`**`(table lesson, Player ply, Entity computer)`  
     Returns if the specified slideshow can be opened  
     This function runs the `canOpenSlideshow_mr` event.
-- *:blue_heart: SERVER:* `boolean prop_teacher_computer_mr.slideshowAllowedInWhitelist(table lesson, Player ply)`  
+- *:blue_heart: SERVER:* `boolean` **`prop_teacher_computer_mr.slideshowAllowedInWhitelist`**`(table lesson, Player ply)`  
     Returns if the specified slideshow is allowed by the whitelist
