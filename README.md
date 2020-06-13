@@ -14,7 +14,7 @@ This add-on improves the exit position when leaving seats. Instead of letting th
 
 These are examples usages of `hook.Add()` for events triggered in this add-on.
 
-- *:blue_heart: SERVER:* `seat_natural_leaving:shouldDo`  
+- *:blue_heart: SERVER:* **`seat_natural_leaving:shouldDo`**  
     Checks whether a seat should use the custom leaving process.  
     This is called several times, not only when leaving a seat.
 
