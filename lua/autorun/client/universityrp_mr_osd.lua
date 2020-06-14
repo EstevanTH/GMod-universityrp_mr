@@ -218,22 +218,24 @@ do
 					drawCenteredText("·", 44)
 				end
 			end
-			drawText(DarkRP and ply:getDarkRPVar("job") or "", 11, 99)
+			drawText(ply.getDarkRPVar and ply:getDarkRPVar("job") or "", 11, 99)
 			surface.SetTextColor(255, 255, 0)
 			drawText(getPlayerRank(ply), 11, 121)
 			surface.SetTextColor(192, 255, 192)
-			drawText(
-				hl == "fr" and
-				"Salaire" or
-				"Salary",
-				128, 154
-			)
-			drawText(
-				hl == "fr" and
-				"Portefeuille" or
-				"Wallet",
-				11, 154
-			)
+			if DarkRP and ply.getDarkRPVar then
+				drawText(
+					hl == "fr" and
+					"Salaire" or
+					"Salary",
+					128, 154
+				)
+				drawText(
+					hl == "fr" and
+					"Portefeuille" or
+					"Wallet",
+					11, 154
+				)
+			end
 			local health_raw = ply:Health()
 			local health = math.min(math.max(health_raw / ply:GetMaxHealth(), 0), 1)
 			health_disp = math.max(math.ceil(health_raw), 0)
@@ -292,12 +294,12 @@ do
 		end
 		surface.SetFont("universityrp_mr_osd_1"); do
 			surface.SetTextColor(192, 255, 192)
-			if DarkRP and RPExtraTeams then
+			if DarkRP and RPExtraTeams and ply.getDarkRPVar then
 				local salary_txt
 				if spectating then
-					local Team = ply:Team()
-					if RPExtraTeams[Team] then
-						salary_txt = "≈" .. DarkRP.formatMoney(RPExtraTeams[Team].salary)
+					local job = RPExtraTeams[ply:Team()]
+					if job then
+						salary_txt = "≈" .. DarkRP.formatMoney(job.salary)
 					else
 						salary_txt = ""
 					end
@@ -315,7 +317,7 @@ do
 				surface.SetTextColor(255, 255, 255)
 			end
 			drawGaugeText(health_disp, 209)
-			if FoodItems and not spectating then -- Hunger Mod enabled
+			if DarkRP and FoodItems and not spectating then -- Hunger Mod enabled
 				if hunger_disp >= 85 then
 					surface.SetTextColor(255, text_pulse, text_pulse)
 				else
