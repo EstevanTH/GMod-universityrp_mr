@@ -32,7 +32,7 @@ if CLIENT then
 	if hl == "fr" then
 		language.Add("tool.universityrp_mr_spawn.desc", "Mémorise les équipements University RP / Retire des entités de la carte")
 		language.Add("tool.universityrp_mr_spawn.mode_add", "Mode : Enregistrer équipements")
-		language.Add("tool.universityrp_mr_spawn.mode_remove", "Mode : Retirer entités")
+		language.Add("tool.universityrp_mr_spawn.mode_remove", "Mode : Retirer entités de la carte")
 		language.Add("tool.universityrp_mr_spawn.reload", "Rafraîchir les informations")
 		language.Add("tool.universityrp_mr_spawn.left_add", "Rendre l'équipement persistant")
 		language.Add("tool.universityrp_mr_spawn.right_add", "Ne plus rendre l'équipement persistant")
@@ -41,7 +41,7 @@ if CLIENT then
 	else
 		language.Add("tool.universityrp_mr_spawn.desc", "Memorizes University RP equipments / Remove map entities")
 		language.Add("tool.universityrp_mr_spawn.mode_add", "Mode: Save equipments")
-		language.Add("tool.universityrp_mr_spawn.mode_remove", "Mode: Remove entities")
+		language.Add("tool.universityrp_mr_spawn.mode_remove", "Mode: Remove map entities")
 		language.Add("tool.universityrp_mr_spawn.reload", "Refresh the information")
 		language.Add("tool.universityrp_mr_spawn.left_add", "Make the equipment persistent")
 		language.Add("tool.universityrp_mr_spawn.right_add", "Do not make the equipment persistent anymore")
@@ -598,8 +598,8 @@ if CLIENT then
 		end
 		local btnModeResetNoRemove = panel:Button(
 			hl == "fr" and
-			"Mode : Retirer entités" or
-			"Mode: Remove entities"
+			"Mode : Retirer entités de la carte" or
+			"Mode: Remove map entities"
 		); do
 			btnModeResetNoRemove.DoClick = function()
 				net.Start("tool.universityrp_mr_spawn")
