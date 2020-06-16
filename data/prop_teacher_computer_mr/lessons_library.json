@@ -151,7 +151,7 @@
 			"keywords": ["biologie", "fonctionnement", "coeur"],
 			"slides": [
 				"https://www.youtube-nocookie.com/embed/QZmYM5-Wb38?start=0&end=75",
-				"https://www.youtube-nocookie.com/embed/QZmYM5-Wb3?start=75&8"
+				"https://www.youtube-nocookie.com/embed/QZmYM5-Wb38?start=75"
 			],
 			"preview": "https://www.example.ext/slideshows/Biologie/Fonctionnement_du_coeur_preview1.jpg"
 		}
@@ -186,7 +186,7 @@
 			"keywords": ["electricite", "principe", "fonctionnement", "generateur", "electrique"],
 			"slides": [
 				"https://www.youtube-nocookie.com/embed/SlD1lgUnQR0?start=0&end=83",
-				"https://www.youtube-nocookie.com/embed/SlD1lgUnQR?start=83&0"
+				"https://www.youtube-nocookie.com/embed/SlD1lgUnQR0?start=83"
 			],
 			"preview": "https://www.example.ext/slideshows/Electricite/Principe_de_fonctionnement_d_un_generateur_electrique_preview1.jpg"
 		}
@@ -261,7 +261,7 @@
 			"filename": "Crétin.fr par LeKipou.odp",
 			"keywords": ["humour", "cretin", "fr", "lekipou"],
 			"slides": [
-				"https://www.youtube-nocookie.com/embed/KLfWn6Mnf2?start=5&A"
+				"https://www.youtube-nocookie.com/embed/KLfWn6Mnf2A?start=5"
 			],
 			"preview": "https://www.example.ext/slideshows/Humour/Cretin.fr_par_LeKipou_preview1.jpg"
 		},
