@@ -325,7 +325,7 @@ local function holdVideoUrl(computer)
 		-- unload video if slideshow not running, but hold the value:
 		computer:SetCurrentUrl("")
 		-- hold the position to continue playing 6 seconds before the current position:
-		computer.videoStartPosition_s = math.max(0, math.floor(RealTime() - computer.videoStartedAt) - 6) -- TODO - tester
+		computer.videoStartPosition_s = math.max(0, math.floor(RealTime() - computer.videoStartedAt) - 6)
 	end
 end
 
@@ -568,7 +568,7 @@ hook.Add("Think", "prop_teacher_computer_mr:sv", function()
 end)
 
 do
-	local youTubeUrlParameters = "autohide=0&controls=1&disablekb=1&enablejsapi=1&fs=0&modestbranding=1&rel=0&showinfo=0&theme=light"
+	local youTubeUrlParameters = "disablekb=1&fs=0&rel=0"
 	
 	function prop_teacher_computer_mr.fixLessonInfo(lesson, lang_server, lang_others)
 		-- Fix & normalize a lesson structure in-place

@@ -8,7 +8,7 @@ print("prop_teacher_computer_mr:cl")
 include("shared.lua")
 
 -- Configuration:
--- local dev_mode = true
+local dev_mode = false
 local DisplayTimeout_s = prop_teacher_computer_mr.DisplayTimeout_s or 45.
 local DefaultRenderWidth = prop_teacher_computer_mr.DefaultRenderWidth or 1280
 local DefaultRenderHeight = prop_teacher_computer_mr.DefaultRenderHeight or 960
@@ -1509,12 +1509,16 @@ do
 						JS_ClearUrlHtml(jsCode, "slideshow_iframe_0", forced) -- unload iframes when URL is picture (prevent background video)
 					else
 						if prop_teacher_computer_mr.isYouTubeUrl(url) then -- current page is YouTube video
+							-- Translate the YouTube player:
+							url = url .. "&hl=" .. hl
+							-- Set the start position properly:
 							local start = self:GetVideoPosition_s()
 							if start > 0 then
 								url = url .. "&start=" .. start -- fix the start
 							end
-							if IsValid(self:GetProjector()) or prop_teacher_computer_mr.getComputerFromPlayer(ply) then -- connected to a projector or local player is the owner
-								url = url .. "&autoplay=1" -- start the video only in this case
+							-- Only play if connected to a projector or local player is the owner:
+							if IsValid(self:GetProjector()) or prop_teacher_computer_mr.getComputerFromPlayer(ply) then
+								url = url .. "&autoplay=1"
 							end
 						end
 						if dev_mode and not forced then LocalPlayer():ChatPrint("slideshow_iframe_0 is moving to " .. url) end
@@ -1777,6 +1781,7 @@ function ENT:OnRemove()
 	if IsValid(self.htmlRenderer) then
 		self.htmlRenderer:Remove()
 	end
+	self.htmlRenderer = nil
 end
 
 hook.Add("findFirstPersonOverlayComputer_mr", "prop_teacher_computer_mr:cl", function(ply, seat)
