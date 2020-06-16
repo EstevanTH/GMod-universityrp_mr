@@ -10,18 +10,31 @@ universityrp_mr_osd = universityrp_mr_osd or {}
 include("config/universityrp_mr_osd/shared.lua")
 
 -- Configuration:
-universityrp_mr_osd.BackgroundColor = universityrp_mr_osd.BackgroundColor or Color(0, 0, 0, 191)
-universityrp_mr_osd.BackgroundMaterial = universityrp_mr_osd.BackgroundMaterial or "vgui/universityrp_mr_osd/background.png"
-universityrp_mr_osd.LogoMaterial = universityrp_mr_osd.LogoMaterial or "vgui/techcredits/miles"
-universityrp_mr_osd.Ranks = universityrp_mr_osd.Ranks or {}
+local BackgroundColor = universityrp_mr_osd.BackgroundColor or Color(0, 0, 0, 191)
+local BackgroundMaterial = universityrp_mr_osd.BackgroundMaterial or "vgui/universityrp_mr_osd/background.png"
+local ChatBackgroundColorFirst = universityrp_mr_osd.ChatBackgroundColorFirst or Color(
+	BackgroundColor.r,
+	BackgroundColor.g,
+	BackgroundColor.b,
+	math.max(BackgroundColor.a, 239)
+)
+local ChatBackgroundColorSecond = universityrp_mr_osd.ChatBackgroundColorSecond or ChatBackgroundColorFirst
+local ChatBackgroundColorFinal = universityrp_mr_osd.ChatBackgroundColorFinal or Color(
+	ChatBackgroundColorSecond.r,
+	ChatBackgroundColorSecond.g,
+	ChatBackgroundColorSecond.b,
+	0
+)
+local LogoMaterial = universityrp_mr_osd.LogoMaterial or "vgui/techcredits/miles"
+local Ranks = universityrp_mr_osd.Ranks or {}
 
 local hl = GetConVar("gmod_language"):GetString()
 cvars.AddChangeCallback("gmod_language", function(convar, oldValue, newValue)
 	hl = newValue
 end, "universityrp_mr_osd:cl")
 
-local materialBackground = Material(universityrp_mr_osd.BackgroundMaterial, "smooth")
-local materialLogo = Material(universityrp_mr_osd.LogoMaterial, "smooth")
+local materialBackground = Material(BackgroundMaterial, "smooth")
+local materialLogo = Material(LogoMaterial, "smooth")
 surface.CreateFont("universityrp_mr_osd_1b", {
 	font = "Comic Sans MS",
 	size = 21,
@@ -100,7 +113,7 @@ local function getPlayerRank(ply)
 	-- Returns the beautiful name of a user group
 	
 	local group = ply:GetUserGroup()
-	return universityrp_mr_osd.Ranks[group] or group
+	return Ranks[group] or group
 end
 
 local scrH = ScrH()
@@ -114,7 +127,7 @@ hook.Add("HUDPaintBackground", "universityrp_mr_osd:cl", function()
 	
 	-- Paint background:
 	surface.SetMaterial(materialBackground)
-	surface.SetDrawColor(universityrp_mr_osd.BackgroundColor)
+	surface.SetDrawColor(BackgroundColor)
 	surface.DrawTexturedRect(0, scrH - 512, 512, 512)
 	surface.SetMaterial(materialLogo)
 	surface.SetDrawColor(255, 255, 255, 255)
@@ -165,13 +178,10 @@ do
 	local gauge_bg = Color(128, 128, 128)
 	local gauge_health = Color(192, 0, 0)
 	local gauge_hunger = Color(0, 0, 192)
-	local ChatFirstColor = Color(0, 0, 96, 224)
-	local ChatSecondColor = Color(0, 0, 96, 224)
-	local ChatFinalColor = Color(0, 0, 96, 0)
-	local ChatCurrentColor = Color(0, 0, 0)
 	local ChatSecondStep = 10
 	local ChatFirstStepDuration = 10
 	local ChatSecondStepDuration = 2
+	local chatBackgroundColorCurrent = Color(0, 0, 0)
 	
 	hook.Add("HUDPaint", "universityrp_mr_osd:cl", function()
 		if shouldDrawOsd == false then
@@ -330,29 +340,31 @@ do
 				end
 			end
 		end
-		if chatEndTime then
-			if chatEndTime > now then
-				if not LocalPlayer():IsTyping() then
-					local chat_progress = now - chatStartTime
-					if chat_progress < ChatSecondStep then -- full background
-						chat_progress = chat_progress / ChatFirstStepDuration
-						ChatCurrentColor.r = Lerp(chat_progress, ChatFirstColor.r, ChatSecondColor.r)
-						ChatCurrentColor.g = Lerp(chat_progress, ChatFirstColor.g, ChatSecondColor.g)
-						ChatCurrentColor.b = Lerp(chat_progress, ChatFirstColor.b, ChatSecondColor.b)
-						ChatCurrentColor.a = Lerp(chat_progress, ChatFirstColor.a, ChatSecondColor.a)
-					else -- fading background
-						chat_progress = (chat_progress - ChatSecondStep) / ChatSecondStepDuration
-						ChatCurrentColor.r = Lerp(chat_progress, ChatSecondColor.r, ChatFinalColor.r)
-						ChatCurrentColor.g = Lerp(chat_progress, ChatSecondColor.g, ChatFinalColor.g)
-						ChatCurrentColor.b = Lerp(chat_progress, ChatSecondColor.b, ChatFinalColor.b)
-						ChatCurrentColor.a = Lerp(chat_progress, ChatSecondColor.a, ChatFinalColor.a)
-					end
-					draw.RoundedBoxEx(0, chat_bg_x, chat_bg_y, chat_bg_w, chat_bg_h, ChatCurrentColor)
+		
+		-- Chat cover:
+		if not chatEndTime then
+			-- nothing
+		elseif chatEndTime > now then
+			if not LocalPlayer():IsTyping() then
+				local chat_progress = now - chatStartTime
+				if chat_progress < ChatSecondStep then -- full background
+					chat_progress = chat_progress / ChatFirstStepDuration
+					chatBackgroundColorCurrent.r = Lerp(chat_progress, ChatBackgroundColorFirst.r, ChatBackgroundColorSecond.r)
+					chatBackgroundColorCurrent.g = Lerp(chat_progress, ChatBackgroundColorFirst.g, ChatBackgroundColorSecond.g)
+					chatBackgroundColorCurrent.b = Lerp(chat_progress, ChatBackgroundColorFirst.b, ChatBackgroundColorSecond.b)
+					chatBackgroundColorCurrent.a = Lerp(chat_progress, ChatBackgroundColorFirst.a, ChatBackgroundColorSecond.a)
+				else -- fading background
+					chat_progress = (chat_progress - ChatSecondStep) / ChatSecondStepDuration
+					chatBackgroundColorCurrent.r = Lerp(chat_progress, ChatBackgroundColorSecond.r, ChatBackgroundColorFinal.r)
+					chatBackgroundColorCurrent.g = Lerp(chat_progress, ChatBackgroundColorSecond.g, ChatBackgroundColorFinal.g)
+					chatBackgroundColorCurrent.b = Lerp(chat_progress, ChatBackgroundColorSecond.b, ChatBackgroundColorFinal.b)
+					chatBackgroundColorCurrent.a = Lerp(chat_progress, ChatBackgroundColorSecond.a, ChatBackgroundColorFinal.a)
 				end
-			else
-				chatStartTime = nil
-				chatEndTime = nil
+				draw.RoundedBoxEx(0, chat_bg_x, chat_bg_y, chat_bg_w, chat_bg_h, chatBackgroundColorCurrent)
 			end
+		else
+			chatStartTime = nil
+			chatEndTime = nil
 		end
 	end)
 end
