@@ -8,6 +8,15 @@ universityrp_mr_osd.BackgroundColor = Color(0, 0, 0, 191)
 -- Background material, usually white + transparency (.png / .vmt without extension):
 universityrp_mr_osd.BackgroundMaterial = "vgui/universityrp_mr_osd/background.png"
 
+-- Color of the chat background, when a message arrives:
+universityrp_mr_osd.ChatBackgroundColorFirst = Color(0, 0, 0, 239)
+
+-- Color of the chat background, when the last message starts fading:
+universityrp_mr_osd.ChatBackgroundColorFirst = Color(0, 0, 0, 239)
+
+-- Color of the chat background, when the last message totally faded (should be fully transparent):
+universityrp_mr_osd.ChatBackgroundColorFirst = Color(0, 0, 0, 0)
+
 -- Logo material (.png / .jpg / .vmt without extension):
 universityrp_mr_osd.LogoMaterial = "vgui/techcredits/miles"
 
