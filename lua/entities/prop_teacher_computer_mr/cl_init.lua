@@ -46,6 +46,8 @@ cvars.AddChangeCallback("gmod_language", function(convar, oldValue, newValue)
 	hl = newValue
 end, "prop_teacher_computer_mr:cl")
 
+local htmlRendererIsChromium
+
 --[[
 local function findUpperPowerOfTwo(num)
 	local i = 1
@@ -1157,6 +1159,26 @@ surface.CreateFont(LoadingAnimFont, {
 })
 
 do
+	local function htmlRenderer_SetHTML(self, ...)
+		-- Avoid calling JS code with Chromium while loading.
+		-- With Chromium, IsLoading() can be used instead. But with Awesomium it returns true for in-page elements too.
+		-- This is not required with Awesomium as it delays JS code execution until the document is loaded.
+		self:SetHTML_(...)
+		self.documentLoaded = false
+	end
+	
+	local function htmlRenderer_OpenURL(self, ...)
+		-- Same reason as htmlRenderer_SetHTML():
+		self:OpenURL_(...)
+		self.documentLoaded = false
+	end
+	
+	local function htmlRenderer_OnDocumentReady(self, url)
+		-- Same reason as htmlRenderer_SetHTML():
+		-- OnFinishLoadingDocument is called just after this, so it is appropriate too.
+		self.documentLoaded = true
+	end
+	
 	local loadingAnim
 	do
 		-- Animated line as loading animation:
@@ -1230,9 +1252,8 @@ do
 							end
 						else
 							surface.SetFont(LoadingAnimFont)
-							local text_h = LoadingAnimHeight
 							local text = loadingAnim()
-							local text_w = surface.GetTextSize(text)
+							local text_w, text_h = surface.GetTextSize(text)
 							local text_x, text_y = (w - text_w) / 2, h - text_h
 							surface.SetTextPos(text_x, text_y)
 							surface.DrawText(text)
@@ -1251,22 +1272,44 @@ do
 	local htmlRenderer_setLoadingType
 	local htmlRenderer_getLoadingType
 	do
-		local loadingType = 0 -- 0=current page, 1=preloading
-		function htmlRenderer_setLoadingType(type_)
-			loadingType = type_
+		function htmlRenderer_setLoadingType(self, type_) -- unused!
+			self.loadingType = type_ -- 0=current page, 1=preloading
 		end
-		function htmlRenderer_getLoadingType()
-			return loadingType
+		function htmlRenderer_getLoadingType(self)
+			return self.loadingType or 0
 		end
 	end
 	
 	function ENT:createHtmlRenderer()
 		self.lastScreenDrawn = self.lastScreenDrawn or 0.
+		-- Setting up:
 		self.htmlRenderer = vgui.Create("DHTML")
+		self.htmlRenderer.SetHTML_ = self.htmlRenderer.SetHTML
+		self.htmlRenderer.SetHTML = htmlRenderer_SetHTML
+		self.htmlRenderer.OpenURL_ = self.htmlRenderer.OpenURL
+		self.htmlRenderer.OpenURL = htmlRenderer_OpenURL
+		self.htmlRenderer.OnDocumentReady = htmlRenderer_OnDocumentReady
+		self.htmlRenderer.drawLoadingOverlay = htmlRenderer_drawLoadingOverlay
+		self.htmlRenderer.PaintOver = htmlRenderer_PaintOver
+		self.htmlRenderer.getLoadingType = htmlRenderer_getLoadingType
+		self.htmlRenderer.setLoadingType = htmlRenderer_setLoadingType
+		self.htmlRenderer.computer = self
+		-- Configuring:
 		self.htmlRenderer:SetSize(renderW, renderH)
 		self.htmlRenderer:SetAlpha(0) -- The panel is drawn on the screen, so we hide it.
 		self.htmlRenderer:SetMouseInputEnabled(false)
 		self.htmlRenderer:SetKeyboardInputEnabled(false)
+		if htmlRendererIsChromium == nil then
+			-- Before pushing any content, the result of IsLoading() is different for Awesomium & Chromium.
+			htmlRendererIsChromium = self.htmlRenderer:IsLoading()
+			if not htmlRendererIsChromium then
+				chat.AddText(
+					hl == "fr" and
+					"Le vieux moteur HTML Awesomium est installé. Les vidéos YouTube ne sont pas supportées." or
+					"The old HTML engine Awesomium is installed. YouTube videos are unsupported."
+				)
+			end
+		end
 		self.htmlRenderer:SetHTML(webPage)
 		self.htmlRenderer:MoveToBack()
 		self.htmlRenderer:Center()
@@ -1298,11 +1341,6 @@ do
 			end
 		end
 		]]
-		self.htmlRenderer.drawLoadingOverlay = htmlRenderer_drawLoadingOverlay
-		self.htmlRenderer.PaintOver = htmlRenderer_PaintOver
-		self.htmlRenderer.getLoadingType = htmlRenderer_getLoadingType
-		self.htmlRenderer.setLoadingType = htmlRenderer_setLoadingType
-		self.htmlRenderer.computer = self
 	end
 end
 
@@ -1310,7 +1348,7 @@ function ENT:Think()
 	if not self:isComputerOn() then
 		if IsValid(self.htmlRenderer) then
 			self.htmlRenderer:Remove()
-			self.state = nil -- force a state change to occur
+			self.htmlRenderer = nil
 		end
 	end
 	local now = RealTime()
@@ -1325,10 +1363,11 @@ function ENT:Think()
 			remove = true -- will be removed on any change or if current URL is a video; no performance impact for idle desks
 		end
 	end
-	if IsValid(self.htmlRenderer) then -- checking if not self.htmlRenderer:IsLoading() is dangerous because loading external contents must be ignored
+	if IsValid(self.htmlRenderer) then
+		-- Checking 'if not self.htmlRenderer:IsLoading()' is dangerous because loading external contents must be ignored (Awesomium only).
 		local state = self:GetState()
 		local lastKnown = self.htmlRenderer.lastKnown
-		if state ~= self.state -- self.state is nil at the beginning
+		if state ~= self.htmlRenderer.state -- self.htmlRenderer.state is nil at the beginning
 		or lastKnown.page1Url ~= self:GetPreviewUrl()
 		or lastKnown.previousUrl ~= self:GetPreviousUrl()
 		or lastKnown.currentUrl ~= self:GetCurrentUrl()
@@ -1336,8 +1375,10 @@ function ENT:Think()
 		or lastKnown.filename ~= self:GetFilename() then -- situation just changed
 			if remove then
 				self.htmlRenderer:Remove() -- marked as "to remove" and change occured
+				self.htmlRenderer = nil
+			elseif not self.htmlRenderer.documentLoaded then
+				-- Wait until the root document is loaded.
 			else
-				-- self.nextForceStateChange = now + math.random(0.7, 1.0)
 				lastKnown.page1Url = self:GetPreviewUrl()
 				lastKnown.previousUrl = self:GetPreviousUrl()
 				lastKnown.currentUrl = self:GetCurrentUrl()
@@ -1350,23 +1391,25 @@ function ENT:Think()
 						self.htmlRenderer.fixingOrigin = true
 					end
 				end
-				self.state = state
+				self.htmlRenderer.state = state
 				self:onStateChange(false)
 			end
-		elseif self.htmlRenderer.fixingOrigin and not self.htmlRenderer:IsLoading() then -- origin just fixed
-			if self.htmlRenderer.fixingOrigin then
+		elseif self.htmlRenderer.fixingOrigin then
+			if not self.htmlRenderer.documentLoaded then
+				-- Wait until the substitution root document is loaded.
+			else -- origin just fixed
 				self.htmlRenderer:RunJavascript(
 					[[document.body.innerHTML = ']] .. webBody .. [[';
 					document.head.innerHTML = ']] .. webHead .. [[';]]
 				)
 				self.htmlRenderer.fixingOrigin = false
 				self.htmlRenderer.fixedOrigin = true
+				self:onStateChange(true)
 			end
-			-- self.nextForceStateChange = now + math.random(0.7, 1.0)
-			self:onStateChange(true)
 		end
 		if remove and prop_teacher_computer_mr.isVideoUrl(lastKnown.currentUrl) then
 			self.htmlRenderer:Remove() -- marked as "to remove" and video playing
+			self.htmlRenderer = nil
 		elseif IsValid(self.htmlRenderer) then
 			if state ~= a.SlideshowOpen and state ~= a.SlideshowRun then
 				-- Unloaded slideshow: new possibility of fixing origin.
@@ -1571,7 +1614,7 @@ do
 		[a.SlideshowRun] = true,
 	}
 	function ENT:onStateChange(forced)
-		local state = self.state
+		local state = self.htmlRenderer and self.htmlRenderer.state or nil
 		local id = actionToScreen[state]
 		if id ~= nil then
 			self:htmlShowScreen(id, forced)
@@ -1762,7 +1805,6 @@ timer.Simple(0., function()
 		if IsValid(computer.htmlRenderer) then
 			computer.htmlRenderer:Remove()
 		end
-		computer.state = nil
 		computer.htmlRenderer = nil
 	end
 	local ply = LocalPlayer()
@@ -1841,7 +1883,7 @@ do
 							if computer_ == computer then
 								if computer_.htmlRenderer:GetAlpha() ~= 255 then
 									computer_.htmlRenderer:SetAlpha(255)
-									if computer_:GetForTechnician() then
+									if dev_mode or computer_:GetForTechnician() then
 										computer_.htmlRenderer:SetMouseInputEnabled(true)
 									end
 								end

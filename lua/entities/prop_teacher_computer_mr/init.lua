@@ -568,7 +568,8 @@ hook.Add("Think", "prop_teacher_computer_mr:sv", function()
 end)
 
 do
-	local youTubeUrlParameters = "disablekb=1&fs=0&rel=0"
+	local youTubeUrlParameters = "disablekb=1&fs=0"
+	-- https://developers.google.com/youtube/player_parameters?hl=en
 	
 	function prop_teacher_computer_mr.fixLessonInfo(lesson, lang_server, lang_others)
 		-- Fix & normalize a lesson structure in-place
