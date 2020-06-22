@@ -14,13 +14,17 @@ AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 AddCSLuaFile("config/prop_teacher_computer_mr/shared.lua")
-include("config/prop_teacher_computer_mr/server.lua")
 resource.AddWorkshop("2128234105")
+
+-- Reset configuration (security) & reload:
+prop_teacher_computer_mr.LuaDefinedAllowedDomains = nil
+include("config/prop_teacher_computer_mr/server.lua")
 
 -- Configuration:
 local LessonsListUrl = prop_teacher_computer_mr.LessonsListUrl or "models/prop_teacher_computer_mr/lessons_library.json.vvd"
 local LessonsListRefresh_s = prop_teacher_computer_mr.LessonsListRefresh_s or 45.
 local LessonsListRefreshAfterError_s = prop_teacher_computer_mr.LessonsListRefreshAfterError_s or 10.
+local LuaDefinedAllowedDomains = prop_teacher_computer_mr.LuaDefinedAllowedDomains or {}
 local SleepTimeout_s = prop_teacher_computer_mr.SleepTimeout_s or 600.
 local OnlyTeachersIfProjector = prop_teacher_computer_mr.OnlyTeachersIfProjector or false
 ENT.Model = prop_teacher_computer_mr.Model or "models/props/cs_office/computer.mdl"
@@ -692,6 +696,74 @@ do
 	-- Load Lua-defined lessons:
 	-- timer.Simple() is used in place of pcall() to benefit from Lua refresh without causing breaking errors.
 	
+	local isAllowedDomain
+	do
+		local allowedDomains = {}
+		local allowedSubdomains = {}
+		for i = 1, #LuaDefinedAllowedDomains do
+			local domain = LuaDefinedAllowedDomains[i]
+			allowedDomains[domain] = true
+			allowedSubdomains[i] = "." .. domain
+		end
+		allowedDomains["i.ytimg.com"] = true
+		allowedDomains["www.youtube-nocookie.com"] = true
+		allowedDomains["www.youtube.com"] = true
+		allowedDomains["docs.google.com"] = true
+		
+		local string_sub = string.sub
+		local string_match = string.match
+		local coroutine_yield = coroutine.yield
+		
+		isAllowedDomain = coroutine.wrap(function(url)
+			while true do
+				local allowed = false
+				do
+					if url == "about:blank"
+					or string_sub(url, 1, 18) == "asset://garrysmod/" then
+						allowed = true
+					end
+				end
+				local domain
+				if not allowed then
+					domain = string_match(url, "https?://([^/]+)")
+				end
+				if domain then
+					do
+						if allowedDomains[domain] then
+							allowed = true
+						end
+					end
+					if not allowed then
+						domain = "." .. domain
+						for i = 1, #allowedSubdomains do
+							local allowedSubdomain = allowedSubdomains[i]
+							if string_sub(domain, -#allowedSubdomain, -1) == allowedSubdomain then
+								allowed = true
+								break
+							end
+						end
+					end
+				end
+				url = coroutine_yield(allowed)
+			end
+		end)
+	end
+	
+	local currentLoadedLuaFile
+	local disallowedUrls = {}
+	
+	local function replaceDisallowedDomainUrl(url)
+		if not isAllowedDomain(url) then
+			if disallowedUrls then
+				local disallowedUrlsInFile = disallowedUrls[currentLoadedLuaFile] or {}
+				disallowedUrls[currentLoadedLuaFile] = disallowedUrlsInFile
+				disallowedUrlsInFile[#disallowedUrlsInFile + 1] = url
+			end
+			url = "asset://garrysmod/materials/vgui/prop_teacher_computer_mr/screen/slide_domain_disallowed.png"
+		end
+		return url
+	end
+	
 	function prop_teacher_computer_mr.registerLesson(category, lesson)
 		-- Registers a lesson as if it was from the JSON lessons list:
 		-- This is only defined while loading Lua-defined lessons.
@@ -706,6 +778,13 @@ do
 			register = true
 		end
 		prop_teacher_computer_mr.fixLessonInfo(lesson) -- because lesson can be altered by hooks
+		do
+			lesson.preview = replaceDisallowedDomainUrl(lesson.preview)
+			for i = 1, #lesson.slides do
+				local slide = lesson.slides[i]
+				slide.url = replaceDisallowedDomainUrl(slide.url)
+			end
+		end
 		if register then
 			luaDefinedLessons[category] = luaDefinedLessons[category] or {}
 			luaDefinedLessons[category][lesson] = true
@@ -717,7 +796,9 @@ do
 	for _, luaFile in ipairs(luaFiles or {}) do
 		luaFile = baseFolder .. luaFile
 		timer.Simple(0., function()
+			currentLoadedLuaFile = luaFile
 			include(luaFile)
+			currentLoadedLuaFile = nil
 		end)
 	end
 	
@@ -725,6 +806,35 @@ do
 		timer.Simple(0., function()
 			prop_teacher_computer_mr.registerLesson = nil
 			luaDefinedLessonsNotLoaded = nil
+			if next(disallowedUrls) then
+				local addonsOfLuaFiles = {}
+				for _, addonInfo in ipairs(engine.GetAddons()) do
+					if addonInfo.mounted then
+						local luaFiles = file.Find("lua/" .. baseFolder .. "*.lua", addonInfo.title)
+						for _, luaFile in ipairs(luaFiles or {}) do
+							luaFile = baseFolder .. luaFile
+							local addons = addonsOfLuaFiles[luaFile] or {}
+							addonsOfLuaFiles[luaFile] = addons
+							addons[#addons + 1] = addonInfo.title
+						end
+					end
+				end
+				ErrorNoHalt("\n[prop_teacher_computer_mr] Domain not included in configuration for:\n")
+				for loadedLuaFile, disallowedUrlsInFile in pairs(disallowedUrls) do
+					print(' In "lua/' .. loadedLuaFile .. '":')
+					if addonsOfLuaFiles[loadedLuaFile] then
+						for _, addonTitle in ipairs(addonsOfLuaFiles[loadedLuaFile]) do
+							print('  (Workshop add-on "' .. addonTitle .. '")')
+						end
+					else
+						print('  (not in a Workshop add-on)')
+					end
+					for i = 1, #disallowedUrlsInFile do
+						print('  ' .. disallowedUrlsInFile[i])
+					end
+				end
+				print()
+			end
 		end)
 	end)
 end
