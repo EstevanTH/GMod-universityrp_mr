@@ -6,6 +6,12 @@ prop_teacher_computer_mr.LessonsListUrl = "data/prop_teacher_computer_mr/lessons
 prop_teacher_computer_mr.LessonsListRefresh_s = 45.
 prop_teacher_computer_mr.LessonsListRefreshAfterError_s = 10.
 
+-- Allowed domains for slides in Lua-defined slideshows:
+-- Do not use a preceding dot. Sub-domains are included implicitly.
+prop_teacher_computer_mr.LuaDefinedAllowedDomains = {
+	--"example.ext",
+}
+
 -- Inactivity timeout before turning the computer into sleep mode:
 prop_teacher_computer_mr.SleepTimeout_s = 600.
 
