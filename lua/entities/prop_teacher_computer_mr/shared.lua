@@ -266,14 +266,22 @@ end
 function prop_teacher_computer_mr.isPictureUrl(url)
 	-- Returns if the URL is a picture
 	
-	local extension = string.match(url, "(%.[a-zA-Z]+)$")
-	if not extension then
-		extension = string.match(url, "(%.[a-zA-Z]+)%?")
+	local isPicture = false
+	do
+		local extension = string.match(url, "(%.[a-zA-Z]+)$")
+		if not extension then
+			extension = string.match(url, "(%.[a-zA-Z]+)%?")
+		end
+		if extension then
+			extension = string.lower(extension)
+		end
+		isPicture = ExtensionsPicture[extension] or false
 	end
-	if extension then
-		extension = string.lower(extension)
+	if not isPicture then
+		isPicture = string.find(url, "^https?://steamuserimages%-a%.akamaihd%.net/")
+		isPicture = isPicture and true or false
 	end
-	return ExtensionsPicture[extension]
+	return isPicture
 end
 
 function prop_teacher_computer_mr.getComputerFromSeat(seat, allComputers)

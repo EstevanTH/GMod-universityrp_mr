@@ -696,6 +696,15 @@ do
 	-- Load Lua-defined lessons:
 	-- timer.Simple() is used in place of pcall() to benefit from Lua refresh without causing breaking errors.
 	
+	local isPictureUrl = prop_teacher_computer_mr.isPictureUrl
+	local string_sub = string.sub
+	local string_match = string.match
+	local coroutine_yield = coroutine.yield
+	
+	local function isEmbeddedContent(url)
+		return (string_sub(url, 1, 18) == "asset://garrysmod/")
+	end
+	
 	local isAllowedDomain
 	do
 		local allowedDomains = {}
@@ -709,17 +718,13 @@ do
 		allowedDomains["www.youtube-nocookie.com"] = true
 		allowedDomains["www.youtube.com"] = true
 		allowedDomains["docs.google.com"] = true
-		
-		local string_sub = string.sub
-		local string_match = string.match
-		local coroutine_yield = coroutine.yield
+		allowedDomains["steamuserimages-a.akamaihd.net"] = true
 		
 		isAllowedDomain = coroutine.wrap(function(url)
 			while true do
 				local allowed = false
 				do
-					if url == "about:blank"
-					or string_sub(url, 1, 18) == "asset://garrysmod/" then
+					if url == "about:blank" then
 						allowed = true
 					end
 				end
@@ -750,13 +755,17 @@ do
 	end
 	
 	local currentLoadedLuaFile
-	local disallowedUrls = {}
+	local disallowedDomainUrls = {}
 	
 	local function replaceDisallowedDomainUrl(url)
-		if not isAllowedDomain(url) then
-			if disallowedUrls then
-				local disallowedUrlsInFile = disallowedUrls[currentLoadedLuaFile] or {}
-				disallowedUrls[currentLoadedLuaFile] = disallowedUrlsInFile
+		if isEmbeddedContent(url) then
+			if not isPictureUrl(url) then
+				url = "asset://garrysmod/materials/vgui/prop_teacher_computer_mr/screen/slide_html_disallowed.png"
+			end
+		elseif not isAllowedDomain(url) then
+			if disallowedDomainUrls then
+				local disallowedUrlsInFile = disallowedDomainUrls[currentLoadedLuaFile] or {}
+				disallowedDomainUrls[currentLoadedLuaFile] = disallowedUrlsInFile
 				disallowedUrlsInFile[#disallowedUrlsInFile + 1] = url
 			end
 			url = "asset://garrysmod/materials/vgui/prop_teacher_computer_mr/screen/slide_domain_disallowed.png"
@@ -806,7 +815,7 @@ do
 		timer.Simple(0., function()
 			prop_teacher_computer_mr.registerLesson = nil
 			luaDefinedLessonsNotLoaded = nil
-			if next(disallowedUrls) then
+			if next(disallowedDomainUrls) then
 				local addonsOfLuaFiles = {}
 				for _, addonInfo in ipairs(engine.GetAddons()) do
 					if addonInfo.mounted then
@@ -820,7 +829,7 @@ do
 					end
 				end
 				ErrorNoHalt("\n[prop_teacher_computer_mr] Domain not included in configuration for:\n")
-				for loadedLuaFile, disallowedUrlsInFile in pairs(disallowedUrls) do
+				for loadedLuaFile, disallowedUrlsInFile in pairs(disallowedDomainUrls) do
 					print(' In "lua/' .. loadedLuaFile .. '":')
 					if addonsOfLuaFiles[loadedLuaFile] then
 						for _, addonTitle in ipairs(addonsOfLuaFiles[loadedLuaFile]) do
