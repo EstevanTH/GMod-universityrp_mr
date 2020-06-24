@@ -190,8 +190,11 @@ The slideshow *Lua table* is simply the equivalent of the slideshow *JSON object
 
 Content files:
 
-- Embedded content uses the `asset://` protocol. Only PNG and JPEG pictures are known to be allowed here. It requires you to use `resource.AddWorkshop()` for the content to be visible for clients. The pictures are stored in the `materials/slideshows/the-category_the-title_the-author-name/` folder of your add-on.
+- Embedded content is accessed using the URL prefix `asset://garrysmod/`. Only PNG pictures (`.png` extension), JPEG pictures (`.jpg` extension) and GIF pictures (renamed with `.png` extension) are known to be allowed here. The pictures are stored in the `materials/slideshows/the-category_the-title_the-author-name/` folder of your add-on.
+- Do not forget to use `resource.AddWorkshop()` for the embedded content to be visible for clients.
+- For safety reasons, embedded content cannot be HTML.
 - External content uses either the `http://` protocol or the `https://` protocol. As mentioned earlier, you can use pictures, HTML pages and YouTube videos.
+- There is a domain restriction for external content. It is configurable by the server owner. When using external content with domains that are not allowed by default, please mention the allowed domain requirements in your add-on description.
 
 In this example:
 

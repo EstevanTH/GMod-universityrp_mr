@@ -695,6 +695,7 @@ local luaDefinedLessonsNotLoaded = true
 do
 	-- Load Lua-defined lessons:
 	-- timer.Simple() is used in place of pcall() to benefit from Lua refresh without causing breaking errors.
+	-- No hook allowing overriding URL validation decisions must be involved, because they can be added anywhere.
 	
 	local isPictureUrl = prop_teacher_computer_mr.isPictureUrl
 	local string_sub = string.sub
