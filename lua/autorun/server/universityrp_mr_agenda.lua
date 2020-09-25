@@ -30,7 +30,7 @@ end
 
 local nextAgendaRefresh = 0.
 
-local function sendAgenda(recipients, auto)
+local function sendAgenda(recipients, automatic_event)
 	universityrp_mr_agenda.cleanAgenda()
 	net.Start("universityrp_mr_agenda")
 		net.WriteUInt(#universityrp_mr_agenda.currentLessons, 8)
@@ -48,7 +48,7 @@ local function sendAgenda(recipients, auto)
 			end
 			net.WriteEntity(lesson.teacher)
 		end
-		net.WriteBool(auto)
+		net.WriteBool(automatic_event) -- no notification sound
 	if not recipients then
 		net.Broadcast()
 		nextAgendaRefresh = RealTime() + 20.
@@ -155,7 +155,14 @@ function universityrp_mr_agenda.insertToAgenda(lesson, duration_min, ply, bypass
 		plannedLesson.finish = plannedLesson.start + duration_s
 		local room, _, building
 		if rooms_lib_mr then
-			room, _, building = rooms_lib_mr.getRoom(IsValid(lesson.computer) and lesson.computer or ply)
+			if lesson.room or lesson.building then
+				-- Global agenda:
+				room = lesson.room
+				building = lesson.building
+			else
+				-- No agenda or Room's agenda:
+				room, _, building = rooms_lib_mr.getRoom(IsValid(lesson.computer) and lesson.computer or ply)
+			end
 		end
 		plannedLesson.building = building
 		plannedLesson.room = room
@@ -183,9 +190,73 @@ net.Receive("universityrp_mr_agenda", function(len, ply)
 					universityrp_mr_agenda.cancelLessonByPlayer(teacher)
 				end
 			else -- start lesson
-				local lesson = universityrp_mr_agenda.canStartLesson(ply)
+				local agenda_prop = net.ReadInt(16)
+				local lesson
+				if agenda_prop == 0 then
+					-- Request from a computer or from a room's implicit lesson:
+					lesson = universityrp_mr_agenda.canStartLesson(ply)
+				else
+					-- Request from an agenda entity:
+					agenda_prop = Entity(agenda_prop)
+					if not universityrp_mr_agenda.is_agenda_prop(agenda_prop)
+					or ply:EyePos():DistToSqr(agenda_prop:WorldSpaceCenter()) > agenda_prop.use_distance_in2 * 2. then -- mult by 2 for extra tolerance
+						agenda_prop = nil
+					else
+						if agenda_prop.room_agenda then
+							-- Request from a Room's agenda:
+							lesson = {
+								computer = agenda_prop,
+							}
+						else
+							-- Request from a Global agenda:
+							lesson = {}
+							if rooms_lib_mr then
+								local room_suitable = false
+								lesson.room = rooms_lib_mr.getRoomFromId(net.ReadUInt(8))
+								if lesson.room then
+									room_suitable = hook.Run("universityrp_mr_agenda:isRoomSuitable", lesson.room, ply)
+									if room_suitable == nil then
+										room_suitable = true
+									end
+								end
+								if room_suitable then
+									lesson.building = lesson.room:getBuilding()
+								else
+									-- The location is invalid:
+									lesson = nil
+								end
+							else
+								net.ReadUInt(8)
+							end
+						end
+						if lesson then
+							lesson.cat = net.ReadString()
+							lesson.title = net.ReadString()
+							if not lesson.cat or #lesson.cat == 0 or not lesson.title or #lesson.title == 0 then
+								lesson = nil
+							else
+								-- Truncate the texts:
+								lesson.cat = utf8.sub(lesson.cat, 1, 63)
+								lesson.title = utf8.sub(lesson.title, 1, 127)
+							end
+						end
+						if lesson then
+							if not universityrp_mr_agenda.canStartThisLesson(ply, lesson) then
+								lesson = nil
+							end
+						end
+					end
+				end
 				if lesson then
 					universityrp_mr_agenda.insertToAgenda(lesson, duration_min, ply, false)
+				elseif agenda_prop == nil then
+					-- Received an agenda entity but incorrect:
+					notify(
+						ply, NOTIFY_ERROR, 5,
+						hl == "fr" and
+						"Vous être trop éloigné de l'agenda." or
+						"You are too far away from the agenda."
+					)
 				else
 					notify(
 						ply, NOTIFY_ERROR, 5,

@@ -72,6 +72,20 @@ function universityrp_mr_agenda.playerIsTeacher(ply)
 	return isTeacher
 end
 
+function universityrp_mr_agenda.canStartThisLesson(ply, lesson)
+	-- Determine if ply can start the specified lesson
+	-- Returns true / false
+	
+	if not lesson then
+		return false
+	end
+	local canSchedule = hook.Run("canScheduleLesson_mr", ply, lesson)
+	if canSchedule == nil then
+		canSchedule = universityrp_mr_agenda.playerIsTeacher(ply)
+	end
+	return canSchedule
+end
+
 local eventsFindStartableLesson = {"findStartableLesson_mr", "findStartableImplicitLesson_mr"}
 function universityrp_mr_agenda.canStartLesson(ply)
 	-- If can start a lesson, returns {cat="Category name", title="Lesson name", computer=Entity(.....)}
@@ -83,15 +97,11 @@ function universityrp_mr_agenda.canStartLesson(ply)
 	end
 	
 	if not universityrp_mr_agenda.getScheduled(ply) then
-		local isTeacher = universityrp_mr_agenda.playerIsTeacher(ply)
 		local lesson
 		for i = 1, #eventsFindStartableLesson do
 			lesson = hook.Run(eventsFindStartableLesson[i], ply)
 			if lesson then
-				local canSchedule = hook.Run("canScheduleLesson_mr", ply, lesson)
-				if canSchedule == nil then
-					canSchedule = isTeacher
-				end
+				local canSchedule = universityrp_mr_agenda.canStartThisLesson(ply, lesson)
 				if not canSchedule then
 					lesson = nil
 				end

@@ -14,7 +14,7 @@ Lessons can be cancelled with the chat command `!lessons`.
 
 The *[Rooms location management library](https://github.com/EstevanTH/GMod-rooms_lib_mr)* is needed to determine locations.
 
-The [DarkRP gamemode](https://github.com/FPtje/DarkRP) is needed to determine of a player is a teacher.
+The [DarkRP gamemode](https://github.com/FPtje/DarkRP) is needed to determine if a player is a teacher.
 
 ## Setting up
 
@@ -126,6 +126,17 @@ end)
 
 ```lua
 hook.Add("universityrp_mr_agenda:shouldSeeLesson", "PUT IDENTIFIER HERE", function(lesson)
+	-- Return a boolean to override the default decision.
+end)
+```
+
+- *:black_heart: SHARED:* **`universityrp_mr_agenda:isRoomSuitable`**  
+    Checks if the specified *(rooms_lib_mr.Room)* can be selected by the given player while planning a lesson  
+    The default decision is `true`.  
+    This event is triggered by the *Global agenda* entity.
+
+```lua
+hook.Add("universityrp_mr_agenda:isRoomSuitable", "PUT IDENTIFIER HERE", function(room, ply)
 	-- Return a boolean to override the default decision.
 end)
 ```

@@ -12,6 +12,249 @@ cvars.AddChangeCallback("gmod_language", function(convar, oldValue, newValue)
 	hl = newValue
 end, "universityrp_mr_agenda:sv")
 
+local text_teach_this_lesson = (
+	hl == "fr" and
+	"Enseigner ce cours" or
+	"Teach this lesson"
+)
+local text_teach_a_lesson_here = (
+	hl == "fr" and
+	"Enseigner un cours ici" or
+	"Teach a lesson here"
+)
+local text_teach_a_lesson = (
+	hl == "fr" and
+	"Enseigner un cours" or
+	"Teach a lesson"
+)
+
+function universityrp_mr_agenda.showStartLessonConfirm(agenda_prop)
+	-- agenda_prop: agenda entity (only if used)
+	
+	if IsValid(universityrp_mr_agenda.startLessonConfirm) then
+		universityrp_mr_agenda.startLessonConfirm:Remove()
+	end
+	local ply = LocalPlayer()
+	local lesson
+	if agenda_prop then
+		if not universityrp_mr_agenda.is_agenda_prop(agenda_prop) then
+			-- Specified an invalid agenda entity:
+			return
+		end
+	else
+		lesson = universityrp_mr_agenda.canStartLesson(ply) -- refreshed
+	end
+	if agenda_prop or lesson then
+		universityrp_mr_agenda.startLessonConfirm = vgui.Create("DFrame"); do
+			local startLessonConfirm = universityrp_mr_agenda.startLessonConfirm
+			startLessonConfirm:MakePopup()
+			local text
+			if agenda_prop then
+				if agenda_prop.room_agenda then
+					text = text_teach_a_lesson_here
+				else
+					text = text_teach_a_lesson
+				end
+			elseif IsValid(lesson.computer) then
+				text = text_teach_this_lesson
+			else
+				text = text_teach_a_lesson_here
+			end
+			if lesson then
+				-- Case with no text fields, so keyboard input can be disabled:
+				startLessonConfirm:SetKeyboardInputEnabled(false)
+			end
+			startLessonConfirm:SetTitle(text)
+			local w = 300 - 8 - 8
+			local x, y = 8, 30
+			local isOkayCategory = true
+			local isOkayTitle = true
+			local categoryField
+			local titleField
+			if agenda_prop then
+				isOkayCategory = false
+				isOkayTitle = false
+				categoryField = vgui.Create("DTextEntry", startLessonConfirm); do
+					categoryField:SetPos(x, y)
+					categoryField:SetWide(w)
+					categoryField:SetPlaceholderText(
+						hl == "fr" and
+						"Matière / Catégorie" or
+						"Subject / Category"
+					)
+					categoryField.OnLoseFocus = function(self)
+						self:SetText(utf8.sub(self:GetText(), 1, 63))
+					end
+					categoryField.OnChange = function(self)
+						isOkayCategory = (#self:GetText() ~= 0)
+					end
+					y = y + categoryField:GetTall() + 8
+				end
+				titleField = vgui.Create("DTextEntry", startLessonConfirm); do
+					titleField:SetPos(x, y)
+					titleField:SetWide(w)
+					titleField:SetPlaceholderText(
+						hl == "fr" and
+						"Titre" or
+						"Title"
+					)
+					titleField.OnLoseFocus = function(self)
+						self:SetText(utf8.sub(self:GetText(), 1, 127))
+					end
+					titleField.OnChange = function(self)
+						isOkayTitle = (#self:GetText() ~= 0)
+					end
+					y = y + titleField:GetTall() + 8
+				end
+			else
+				titleField = vgui.Create("DLabel", startLessonConfirm); do
+					titleField:SetPos(x, y)
+					titleField:SetText(lesson.title)
+					titleField:SizeToContents()
+					y = y + titleField:GetTall() + 8
+				end
+			end
+			local delayLabel = vgui.Create("DLabel", startLessonConfirm); do
+				delayLabel:SetPos(x, y)
+				delayLabel:SetText(string.format(
+					hl == "fr" and
+					"Début dans %u secondes" .. (universityrp_mr_agenda.AgendaAllowConflict and "" or " après 1er créneau disponible") or
+					"Begins in %u seconds" .. (universityrp_mr_agenda.AgendaAllowConflict and "" or " after the 1st available time slot"), universityrp_mr_agenda.AgendaPrepareTime_s
+				))
+				delayLabel:SizeToContents()
+				y = y + delayLabel:GetTall() + 8
+			end
+			local confirmButton
+			local isOkayDuration = false
+			local selectedDuration_min
+			local durationSelector = vgui.Create("DNumSlider", startLessonConfirm); do
+				durationSelector:SetPos(x, y)
+				durationSelector:SetSize(w, 20)
+				durationSelector:SetText(
+					hl == "fr" and
+					"Durée (minutes) :" or
+					"Duration (minutes):"
+				)
+				durationSelector:SetMin(universityrp_mr_agenda.AgendaMinDuration_min)
+				durationSelector:SetMax(universityrp_mr_agenda.AgendaMaxDuration_min)
+				durationSelector:SetDecimals(0)
+				durationSelector:SetValue(0)
+				durationSelector.OnValueChanged = function(self, selectedDuration_)
+					selectedDuration_min = math.Round(selectedDuration_)
+					isOkayDuration = (
+						selectedDuration_min >= universityrp_mr_agenda.AgendaMinDuration_min or
+						selectedDuration_min <= universityrp_mr_agenda.AgendaMaxDuration_min
+					)
+				end
+				y = y + durationSelector:GetTall() + 8
+			end
+			local isOkayLocation = true
+			local locationLabel
+			if agenda_prop and not agenda_prop.room_agenda then
+				-- Global agenda:
+				locationLabel = vgui.Create("DComboBox", startLessonConfirm); do
+					locationLabel:SetPos(x, y)
+					locationLabel:SetSortItems(false)
+					locationLabel:AddChoice(
+						(
+							hl == "fr" and
+							"Sélectionne une salle :" or
+							"Select a room:"
+						),
+						nil, -- data
+						true -- selected
+					)
+					if rooms_lib_mr then
+						isOkayLocation = false
+						for id, room in ipairs(rooms_lib_mr.getRooms()) do
+							local room_suitable = hook.Run("universityrp_mr_agenda:isRoomSuitable", room, ply)
+							if room_suitable == nil then
+								room_suitable = true
+							end
+							if room_suitable then
+								locationLabel:AddChoice(
+									rooms_lib_mr.getFullRoomLabel(
+										room:getBuildingName(),
+										room:getName()
+									),
+									id
+								)
+							end
+						end
+					end
+					locationLabel:SetWide(w)
+					locationLabel.OnSelect = function(self, _, _, id)
+						if rooms_lib_mr then
+							isOkayLocation = (id ~= nil and id > 0)
+						end
+					end
+					y = y + locationLabel:GetTall() + 8
+				end
+			else
+				-- No agenda or Room's agenda:
+				locationLabel = vgui.Create("DLabel", startLessonConfirm); do
+					locationLabel:SetPos(x, y)
+					if rooms_lib_mr then
+						local _, room_name, _, building_name = rooms_lib_mr.getRoom(
+							(lesson and IsValid(lesson.computer) and lesson.computer) or
+							agenda_prop or
+							ply
+						)
+						locationLabel:SetText(rooms_lib_mr.getFullRoomLabel(building_name, room_name))
+					end
+					locationLabel:SizeToContents()
+					y = y + locationLabel:GetTall() + 8
+				end
+			end
+			local teacherLabel = vgui.Create("DLabel", startLessonConfirm); do
+				teacherLabel:SetPos(x, y)
+				teacherLabel:SetText(ply:Nick())
+				teacherLabel:SizeToContents()
+				y = y + teacherLabel:GetTall() + 8
+			end
+			confirmButton = vgui.Create("DButton", startLessonConfirm); do
+				confirmButton:SetPos(x, y)
+				confirmButton:SetSize(w, 20)
+				confirmButton:SetText(
+					hl == "fr" and
+					"Planifier le cours" or
+					"Schedule the lesson"
+				)
+				confirmButton.DoClick = function(self)
+					net.Start("universityrp_mr_agenda")
+						net.WriteBool(true)
+						net.WriteUInt(selectedDuration_min, 8)
+						if agenda_prop then
+							-- Agenda entity used:
+							net.WriteUInt(agenda_prop:EntIndex(), 16)
+							if not agenda_prop.room_agenda then
+								net.WriteUInt(({locationLabel:GetSelected()})[2], 8) -- room id
+							end
+							net.WriteString(utf8.sub(categoryField:GetText(), 1, 63))
+							net.WriteString(utf8.sub(titleField:GetText(), 1, 127))
+						else
+							-- No agenda entity:
+							net.WriteUInt(0, 16)
+						end
+					net.SendToServer()
+					startLessonConfirm:Remove()
+				end
+				confirmButton.Think = function(self)
+					confirmButton:SetEnabled(
+						isOkayCategory and
+						isOkayTitle and
+						isOkayDuration and
+						isOkayLocation
+					)
+				end
+				y = y + confirmButton:GetTall() + 8
+			end
+			startLessonConfirm:SetSize(8 + w + 8, y)
+			startLessonConfirm:Center()
+		end
+	end
+end
+
 hook.Add("Tick", "universityrp_mr_agenda:cl", function()
 	universityrp_mr_agenda.cleanAgenda()
 	local ply = LocalPlayer()
@@ -35,100 +278,13 @@ hook.Add("Tick", "universityrp_mr_agenda:cl", function()
 				startLessonButton:SetSize(267, 20)
 				local text
 				if IsValid(lesson.computer) then
-					text = (
-						hl == "fr" and
-						"Enseigner ce cours" or
-						"Teach this lesson"
-					)
+					text = text_teach_this_lesson
 				else
-					text = (
-						hl == "fr" and
-						"Enseigner un cours ici" or
-						"Teach a lesson here"
-					)
+					text = text_teach_a_lesson_here
 				end
 				startLessonButton:SetText(text)
 				startLessonButton.DoClick = function(self)
-					if IsValid(universityrp_mr_agenda.startLessonConfirm) then
-						universityrp_mr_agenda.startLessonConfirm:Remove()
-					end
-					local lesson = universityrp_mr_agenda.canStartLesson(ply) -- refreshed
-					if lesson then
-						universityrp_mr_agenda.startLessonConfirm = vgui.Create("DFrame"); do
-							local startLessonConfirm = universityrp_mr_agenda.startLessonConfirm
-							startLessonConfirm:MakePopup()
-							startLessonConfirm:SetKeyboardInputEnabled(false)
-							startLessonConfirm:SetSize(300, 180)
-							startLessonConfirm:SetTitle(text)
-							startLessonConfirm:Center()
-							local titleLabel = vgui.Create("DLabel", startLessonConfirm); do
-								titleLabel:SetPos(10, 30)
-								titleLabel:SetText(lesson.title)
-								titleLabel:SizeToContents()
-							end
-							local delayLabel = vgui.Create("DLabel", startLessonConfirm); do
-								delayLabel:SetPos(10, 50)
-								delayLabel:SetText(string.format(
-									hl == "fr" and
-									"Début dans %u secondes" .. (universityrp_mr_agenda.AgendaAllowConflict and "" or " après 1er créneau disponible") or
-									"Begins in %u seconds" .. (universityrp_mr_agenda.AgendaAllowConflict and "" or " after the 1st available time slot"), universityrp_mr_agenda.AgendaPrepareTime_s
-								))
-								delayLabel:SizeToContents()
-							end
-							local confirmButton
-							local durationSelector = vgui.Create("DNumSlider", startLessonConfirm); do
-								durationSelector:SetPos(10, 70)
-								durationSelector:SetSize(280, 20)
-								durationSelector:SetText(
-									hl == "fr" and
-									"Durée (minutes) :" or
-									"Duration (minutes):"
-								)
-								durationSelector:SetMin(universityrp_mr_agenda.AgendaMinDuration_min)
-								durationSelector:SetMax(universityrp_mr_agenda.AgendaMaxDuration_min)
-								durationSelector:SetDecimals(0)
-								durationSelector:SetValue(0)
-								durationSelector.OnValueChanged = function(self, selectedDuration)
-									selectedDuration = math.Round(selectedDuration)
-									confirmButton.selectedDuration = selectedDuration
-									confirmButton:SetDisabled(
-										selectedDuration < universityrp_mr_agenda.AgendaMinDuration_min or
-										selectedDuration > universityrp_mr_agenda.AgendaMaxDuration_min
-									)
-								end
-							end
-							local locationLabel = vgui.Create("DLabel", startLessonConfirm); do
-								locationLabel:SetPos(10, 100)
-								if rooms_lib_mr then
-									local _, room_name, _, building_name = rooms_lib_mr.getRoom(IsValid(lesson.computer) and lesson.computer or ply)
-									locationLabel:SetText(rooms_lib_mr.getFullRoomLabel(building_name, room_name))
-								end
-								locationLabel:SizeToContents()
-							end
-							local teacherLabel = vgui.Create("DLabel", startLessonConfirm); do
-								teacherLabel:SetPos(10, 120)
-								teacherLabel:SetText(ply:Nick())
-								teacherLabel:SizeToContents()
-							end
-							confirmButton = vgui.Create("DButton", startLessonConfirm); do
-								confirmButton:SetPos(10, 150)
-								confirmButton:SetSize(280, 20)
-								confirmButton:SetText(
-									hl == "fr" and
-									"Planifier le cours" or
-									"Schedule the lesson"
-								)
-								confirmButton.DoClick = function(self)
-									net.Start("universityrp_mr_agenda")
-										net.WriteBool(true)
-										net.WriteUInt(self.selectedDuration, 8)
-									net.SendToServer()
-									startLessonConfirm:Remove()
-								end
-								confirmButton:SetDisabled(true)
-							end
-						end
-					end
+					universityrp_mr_agenda.showStartLessonConfirm()
 				end
 			end
 		end
