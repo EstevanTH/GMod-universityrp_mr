@@ -139,8 +139,11 @@ local universityClasses = {
 	["prop_projector_screen_mr"] = true,
 	["prop_teacher_computer_mr"] = true,
 	["prop_vehicle_prisoner_pod"] = true,
+	["prop_agenda_global_mr"] = true,
+	["prop_agenda_room_mr"] = true,
 }
 local basicPropClasses = {
+	-- Classes that are converted to prop_dynamic:
 	["prop_dynamic"] = true,
 	["prop_dynamic_override"] = true,
 	["prop_physics"] = true,
