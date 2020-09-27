@@ -35,7 +35,7 @@ do
 		end
 	end
 	local hooks = hook.GetTable()["PostGamemodeLoaded"]
-	if hooks["universityrp_mr_agenda:sh"] then
+	if hooks and hooks["universityrp_mr_agenda:sh"] then
 		-- only execute on Lua refresh:
 		delayedConfiguration()
 	end

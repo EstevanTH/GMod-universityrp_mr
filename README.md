@@ -131,7 +131,7 @@ end)
 ```
 
 - *:black_heart: SHARED:* **`universityrp_mr_agenda:isRoomSuitable`**  
-    Checks if the specified *(rooms_lib_mr.Room)* can be selected by the given player while planning a lesson  
+    Checks if the specified *rooms_lib_mr.Room* can be selected by the given player while planning a lesson  
     The default decision is `true`.  
     This event is triggered by the *Global agenda* entity.
 
