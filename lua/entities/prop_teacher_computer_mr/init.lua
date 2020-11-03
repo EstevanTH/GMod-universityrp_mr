@@ -20,8 +20,15 @@ resource.AddWorkshop("2128234105")
 prop_teacher_computer_mr.LuaDefinedAllowedDomains = nil
 include("config/prop_teacher_computer_mr/server.lua")
 
+-- Default values:
+local lessons_list_default_path = "data/prop_teacher_computer_mr/lessons_library.json"
+
 -- Configuration:
-local LessonsListUrl = prop_teacher_computer_mr.LessonsListUrl or "models/prop_teacher_computer_mr/lessons_library.json.vvd"
+local LessonsListUrl = (
+	prop_teacher_computer_mr.LessonsListUrl or
+	(file.Exists(lessons_list_default_path, "GAME") and lessons_list_default_path) or
+	"models/prop_teacher_computer_mr/lessons_library.json.vvd"
+)
 local LessonsListRefresh_s = prop_teacher_computer_mr.LessonsListRefresh_s or 45.
 local LessonsListRefreshAfterError_s = prop_teacher_computer_mr.LessonsListRefreshAfterError_s or 10.
 local LuaDefinedAllowedDomains = prop_teacher_computer_mr.LuaDefinedAllowedDomains or {}
