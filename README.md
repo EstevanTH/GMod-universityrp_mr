@@ -321,7 +321,7 @@ hook.Add("findStartableLesson_mr", "prop_teacher_computer_mr:sh", .....)
     Changes the current slide number to the previous one  
     This can be used clientside for prediction.
 - *:black_heart: SHARED:* `string` **`ENT:GetCurrentUrl`**`()`  
-    Returns the URL of the previous slide (except if it is a video)
+    Returns the URL of the current slide
 - *:black_heart: SHARED:* `string` **`ENT:GetFilename`**`()`  
     Returns the displayed filename on OpenOffice Impress
 - *:black_heart: SHARED:* `boolean` **`ENT:GetForTechnician`**`()`  
@@ -333,7 +333,7 @@ hook.Add("findStartableLesson_mr", "prop_teacher_computer_mr:sh", .....)
 - *:black_heart: SHARED:* `string` **`ENT:GetPreviewUrl`**`()`  
     Returns the preview picture URL
 - *:black_heart: SHARED:* `string` **`ENT:GetPreviousUrl`**`()`  
-    Returns the URL of the current slide
+    Returns the URL of the previous slide (except if it is a video)
 - *:black_heart: SHARED:* `Entity` **`ENT:GetProjector`**`()`  
     Returns the associated projector
 - *:black_heart: SHARED:* `Entity` **`ENT:GetProjectorScreen`**`()`  
